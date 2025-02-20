@@ -1,23 +1,30 @@
 /* Header Styles */
 header {
   display: flex;
-  justify-content: space-between;
-  align-items: center; /* Vertically center all items */
+  justify-content: space-between; /* Space out the containers */
+  align-items: center; /* Vertically center all containers */
   background: rgba(51, 51, 51, 0.8); /* Translucent black */
   color: #fff;
-  padding: 10px 20px; /* Adjusted padding for better spacing */
+  padding: 10px 20px; /* Padding for spacing */
   position: sticky;
   top: 0;
   z-index: 1000;
   backdrop-filter: blur(10px); /* Optional: Adds a blur effect */
-  height: 80px; /* Set a fixed height for the header */
+  height: 80px; /* Fixed height for the header */
 }
 
-.header-left {
+/* Common styles for all header containers */
+.header-container {
   display: flex;
+  align-items: center; /* Vertically center content */
+  height: 100%; /* Take up full height of the header */
+}
+
+/* Left Container */
+.header-left {
   flex-direction: column; /* Stack h1 and p vertically */
   justify-content: center; /* Center content vertically */
-  height: 100%; /* Take up full height of the header */
+  text-align: left; /* Align text to the left */
 }
 
 .header-left h1 {
@@ -31,10 +38,9 @@ header {
   color: #ccc;
 }
 
+/* Center Container */
 .header-center {
-  display: flex;
-  align-items: center; /* Center the link vertically */
-  height: 100%; /* Take up full height of the header */
+  justify-content: center; /* Center content horizontally */
 }
 
 .header-center a {
@@ -48,10 +54,9 @@ header {
   text-decoration: underline;
 }
 
+/* Right Container */
 .header-right {
-  display: flex;
-  align-items: center; /* Center the button vertically */
-  height: 100%; /* Take up full height of the header */
+  justify-content: flex-end; /* Align content to the right */
 }
 
 .header-right .get-in-touch {
