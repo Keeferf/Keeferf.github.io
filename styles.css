@@ -1,30 +1,47 @@
+/* CSS Variables for Reusability */
+:root {
+  --header-bg: rgba(51, 51, 51, 0.8);
+  --text-color: #fff;
+  --accent-color: #007bff;
+  --hover-color: #0056b3;
+  --header-height: 80px;
+}
+
+/* General Styles */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  line-height: 1.6;
+  background-color: #f4f4f4;
+  color: #333;
+}
+
 /* Header Styles */
 header {
   display: flex;
-  justify-content: space-between; /* Space out the containers */
-  align-items: center; /* Vertically center all containers */
-  background: rgba(51, 51, 51, 0.8); /* Translucent black */
-  color: #fff;
-  padding: 10px 20px; /* Padding for spacing */
+  justify-content: space-between;
+  align-items: center;
+  background: var(--header-bg);
+  color: var(--text-color);
+  padding: 10px 20px;
   position: sticky;
   top: 0;
   z-index: 1000;
-  backdrop-filter: blur(10px); /* Optional: Adds a blur effect */
-  height: 80px; /* Fixed height for the header */
+  backdrop-filter: blur(10px);
+  height: var(--header-height);
 }
 
-/* Common styles for all header containers */
 .header-container {
   display: flex;
-  align-items: center; /* Vertically center content */
-  height: 100%; /* Take up full height of the header */
+  align-items: center;
+  height: 100%;
+  flex: 1;
 }
 
-/* Left Container */
 .header-left {
-  flex-direction: column; /* Stack h1 and p vertically */
-  justify-content: center; /* Center content vertically */
-  text-align: left; /* Align text to the left */
+  justify-content: flex-start;
+  text-align: left;
 }
 
 .header-left h1 {
@@ -38,13 +55,12 @@ header {
   color: #ccc;
 }
 
-/* Center Container */
 .header-center {
-  justify-content: center; /* Center content horizontally */
+  justify-content: center;
 }
 
 .header-center a {
-  color: #fff;
+  color: var(--text-color);
   text-decoration: none;
   font-weight: bold;
   font-size: 18px;
@@ -54,20 +70,69 @@ header {
   text-decoration: underline;
 }
 
-/* Right Container */
 .header-right {
-  justify-content: flex-end; /* Align content to the right */
+  justify-content: flex-end;
 }
 
-.header-right .get-in-touch {
-  background: #007bff;
-  color: #fff;
+.get-in-touch {
+  background: var(--accent-color);
+  color: var(--text-color);
   padding: 10px 20px;
   border-radius: 5px;
   text-decoration: none;
   font-weight: bold;
 }
 
-.header-right .get-in-touch:hover {
-  background: #0056b3;
+.get-in-touch:hover {
+  background: var(--hover-color);
+}
+
+/* Navigation Styles */
+nav {
+  display: flex;
+  justify-content: center;
+  background: rgba(68, 68, 68, 0.8);
+  padding: 10px;
+}
+
+nav a {
+  color: var(--text-color);
+  margin: 0 15px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
+
+/* Section Styles */
+section {
+  padding: 20px;
+  margin: 20px auto;
+  max-width: 800px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  color: #333;
+  border-bottom: 2px solid #333;
+  padding-bottom: 10px;
+}
+
+/* Skill and Project Styles */
+.skill,
+.project {
+  margin-bottom: 20px;
+}
+
+/* Footer Styles */
+footer {
+  text-align: center;
+  padding: 20px;
+  background: #333;
+  color: var(--text-color);
+  margin-top: 20px;
 }
