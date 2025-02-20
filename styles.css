@@ -10,10 +10,50 @@ body {
 
 /* Header Styles */
 header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   background: #333;
   color: #fff;
-  padding: 20px 0;
-  text-align: center;
+  padding: 20px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.header-left h1 {
+  margin: 0;
+  font-size: 24px;
+}
+
+.header-left p {
+  margin: 0;
+  font-size: 14px;
+  color: #ccc;
+}
+
+.header-center a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.header-center a:hover {
+  text-decoration: underline;
+}
+
+.header-right .get-in-touch {
+  background: #007bff;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.header-right .get-in-touch:hover {
+  background: #0056b3;
 }
 
 /* Navigation Styles */
