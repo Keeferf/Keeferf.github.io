@@ -13,7 +13,10 @@ body {
   margin: 0;
   padding: 0;
   line-height: 1.6;
-  background-color: #f4f4f4;
+  background: linear-gradient(to bottom, #f4f4f4, #333);
+  background-attachment: fixed;
+  background-size: 100% 200%;
+  transition: background 0.5s ease;
   color: #333;
 }
 
@@ -40,14 +43,14 @@ header {
 }
 
 .header-left {
-  justify-content: flex-start; /* Aligns children to the top */
-  align-items: flex-start; /* Aligns children to the left */
-  text-align: left; /* Ensures text is left-aligned */
-  flex-direction: column; /* Stacks children vertically */
+  justify-content: flex-start;
+  align-items: flex-start;
+  text-align: left;
+  flex-direction: column;
 }
 
 .header-left h1 {
-  margin: 0 0 0.2rem 0; /* Adds space below the <h1> */
+  margin: 0 0 0.2rem 0;
   font-size: 24px;
   line-height: 1.5;
 }
@@ -119,4 +122,71 @@ footer {
   background: #333;
   color: var(--text-color);
   margin-top: 20px;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  /* Adjust header for smaller screens */
+  header {
+    flex-direction: column;
+    height: auto;
+    padding: 10px;
+  }
+
+  .header-container {
+    justify-content: center;
+    margin: 5px 0;
+  }
+
+  .header-left {
+    text-align: center;
+  }
+
+  .header-left h1 {
+    font-size: 20px;
+  }
+
+  .header-left p {
+    font-size: 12px;
+  }
+
+  .header-center a {
+    font-size: 16px;
+  }
+
+  .get-in-touch {
+    padding: 8px 16px;
+    font-size: 14px;
+  }
+
+  /* Adjust footer for smaller screens */
+  footer {
+    padding: 15px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Further adjustments for very small screens */
+  .header-left h1 {
+    font-size: 18px;
+  }
+
+  .header-left p {
+    font-size: 10px;
+  }
+
+  .header-center a {
+    font-size: 14px;
+  }
+
+  .get-in-touch {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+
+  footer {
+    padding: 10px;
+    font-size: 12px;
+  }
 }
