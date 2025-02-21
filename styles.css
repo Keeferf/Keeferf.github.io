@@ -1,6 +1,7 @@
 /* CSS Variables for Reusability */
 :root {
-  --header-bg: rgba(51, 51, 51, 0.8);
+  --header-bg: rgba(51, 51, 51, 0);
+  --footer-bg: rgba(51, 51, 51, 0);
   --text-color: #fff;
   --accent-color: #007bff;
   --hover-color: #0056b3;
@@ -32,7 +33,6 @@ header {
   position: sticky;
   top: 0;
   z-index: 1000;
-  backdrop-filter: blur(10px);
   height: var(--header-height);
   max-width: var(--max-width); /* Added max-width for header */
   margin: 0 auto; /* Center the header */
@@ -123,7 +123,7 @@ h2 {
 footer {
   text-align: center;
   padding: 20px;
-  background: #333;
+  background: rgba(--footer-bg);
   color: var(--text-color);
   margin-top: 20px;
   max-width: var(--max-width); /* Added max-width for footer */
