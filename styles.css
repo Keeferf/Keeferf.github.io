@@ -5,6 +5,7 @@
   --accent-color: #007bff;
   --hover-color: #0056b3;
   --header-height: 80px;
+  --max-width: 1168px; /* New variable for max width */
 }
 
 /* General Styles */
@@ -33,6 +34,9 @@ header {
   z-index: 1000;
   backdrop-filter: blur(10px);
   height: var(--header-height);
+  max-width: var(--max-width); /* Added max-width for header */
+  margin: 0 auto; /* Center the header */
+  width: 100%; /* Ensure it takes full width up to max-width */
 }
 
 .header-container {
@@ -97,7 +101,7 @@ header {
 section {
   padding: 20px;
   margin: 20px auto;
-  max-width: 1200px;
+  max-width: var(--max-width); /* Updated to use the new max-width variable */
   background: #fff;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -122,6 +126,9 @@ footer {
   background: #333;
   color: var(--text-color);
   margin-top: 20px;
+  max-width: var(--max-width); /* Added max-width for footer */
+  margin: 20px auto; /* Center the footer */
+  width: 100%; /* Ensure it takes full width up to max-width */
 }
 
 /* Responsive Styles */
