@@ -7,12 +7,13 @@
   --hover-color: #0056b3;
   --header-height: 80px;
   --max-width: 1168px;
-  --font-roboto: "Roboto", sans-serif;
+  --font-roboto: "Roboto Slab", sans-serif;
+  --font-open-sans: "Open Sans", sans-serif;
 }
 
 /* General Styles */
 body {
-  font-family: Arial, sans-serif;
+  font-family: var(--font-open-sans);
   margin: 0;
   padding: 0;
   line-height: 1.6;
@@ -30,8 +31,7 @@ header {
   align-items: center;
   background: var(--header-bg);
   color: var(--text-color);
-  padding: 10px 20px;
-  position: sticky;
+  padding: 40px 20px;
   top: 0;
   z-index: 1000;
   height: var(--header-height);
@@ -72,12 +72,12 @@ header {
 }
 
 .header-right a {
-  color: #999; /* Light gray for non-active links */
+  color: #999;
   text-decoration: none;
   font-weight: bold;
   font-size: 18px;
   font-family: var(--font-roboto);
-  transition: color 0.3s ease; /* Smooth transition for color change */
+  transition: color 0.3s ease;
 }
 
 /* Active link style */
@@ -92,65 +92,31 @@ header {
   text-decoration-thickness: 4px;
 }
 
-/* Section Styles */
-section {
-  margin: 0 auto; /* Centers the section */
-  max-width: var(--max-width); /* Limits the width to 1168px */
-  /* No padding to allow content to extend to edges */
-}
-
-h2 {
-  color: #333;
-  padding-bottom: 10px;
-  font-family: var(--font-roboto);
-  padding-left: 20px; /* Add padding to the heading */
-  padding-right: 20px; /* Add padding to the heading */
-}
-
-/* Skill and Project Styles */
-.skill,
-.project {
-  margin-bottom: 20px;
-  padding-left: 20px; /* Add padding to projects */
-  padding-right: 20px; /* Add padding to projects */
-}
-
-.skill h3,
-.project h3 {
-  font-family: var(--font-roboto);
-}
-
-p {
-  padding-left: 20px; /* Add padding to paragraphs */
-  padding-right: 20px; /* Add padding to paragraphs */
-}
-
 /* Name and Title Styles */
 .name-title {
-  text-align: center;
-  margin-bottom: 40px;
-  padding: 20px;
+  text-align: left;
+  margin: 100px 0px;
 }
 
 .name-title h1 {
-  font-family: "Roboto Slab", serif;
-  font-size: 48px;
+  font-family: var(--font-roboto);
+  font-size: 72px;
   margin: 0;
   color: #333;
 }
 
 .name-title h2 {
-  font-family: "Roboto Slab", serif;
-  font-size: 24px;
-  margin: 10px 0 0;
+  font-family: var(--font-roboto);
+  font-size: 48px;
   color: #666;
+  margin: 0;
+  padding: 0;
 }
 
 /* Main Content Area */
 #main-content {
-  margin: 0 auto; /* Centers the main content */
-  max-width: var(--max-width); /* Limits the width to 1168px */
-  /* No padding to allow content to extend to edges */
+  margin: 0 auto;
+  max-width: var(--max-width);
 }
 
 /* Footer Styles */
