@@ -19,10 +19,6 @@ body {
   background-attachment: fixed;
   background-size: 100% 200%;
   color: #333;
-  background: linear-gradient(180deg, #ffffff 0%, #e0e0e0 100%);
-  background-attachment: fixed;
-  background-size: 100% 200%;
-  transition: background 0.5s ease;
 }
 
 /* ===== Header Section ===== */
@@ -191,6 +187,74 @@ header {
 
 .project:hover .project-preview span {
   transform: scale(1.05);
+}
+
+/* ===== About Section Styles ===== */
+#about {
+  padding: 60px 20px;
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+.about-container {
+  text-align: left;
+}
+
+.about-container h2 {
+  font-size: 60px;
+  color: #666;
+  margin-bottom: 40px;
+  font-family: var(--font-inter);
+}
+
+.about-content {
+  display: flex;
+  gap: 40px; /* Space between text and image */
+  align-items: center; /* Vertically center the content */
+}
+
+.about-text {
+  flex: 1; /* Takes up half the width */
+}
+
+.about-text p {
+  font-size: 18px;
+  line-height: 1.8;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.about-text strong {
+  color: #000;
+  font-weight: 600;
+}
+
+.resume-link {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: var(--accent-color);
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: bold;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.resume-link:hover {
+  background-color: var(--hover-color);
+}
+
+.about-image {
+  flex: 1; /* Takes up half the width */
+  text-align: center; /* Center the image */
+}
+
+.about-image img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 15px; /* Optional: Add rounded corners to the image */
 }
 
 /* ===== Footer Section ===== */

@@ -69,21 +69,3 @@ function addProjectLinkListeners() {
     });
   });
 }
-
-// Gradient Scroll Effect
-window.addEventListener("scroll", () => {
-  const scrollPosition = window.scrollY;
-  const documentHeight =
-    document.documentElement.scrollHeight - window.innerHeight;
-  const scrollPercentage = (scrollPosition / documentHeight) * 100;
-
-  const startColor = [255, 255, 255]; // White
-  const endColor = [160, 160, 160]; // Gray
-
-  const currentColor = startColor.map((start, i) => {
-    return start + (endColor[i] - start) * (scrollPercentage / 100);
-  });
-
-  const bgColor = `rgb(${currentColor.join(",")})`;
-  document.body.style.background = `linear-gradient(180deg, ${bgColor} 0%, ${bgColor} 100%)`;
-});
