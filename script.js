@@ -28,6 +28,9 @@ function updateNavStyles(selectedLinkId) {
 window.addEventListener("load", () => {
   loadContent("projects.html");
   updateNavStyles("projects-link"); // Highlight Projects tab by default
+
+  // Add event listeners for project links after content is loaded
+  addProjectLinkListeners();
 });
 
 // Handle navigation clicks
@@ -36,6 +39,9 @@ document.getElementById("projects-link").addEventListener("click", (e) => {
   loadContent("projects.html");
   updateNavStyles("projects-link"); // Highlight Projects tab
   history.pushState(null, "", "#projects"); // Update URL hash
+
+  // Add event listeners for project links after content is loaded
+  addProjectLinkListeners();
 });
 
 document.getElementById("about-link").addEventListener("click", (e) => {
@@ -54,5 +60,21 @@ window.addEventListener("popstate", () => {
   } else {
     loadContent("projects.html");
     updateNavStyles("projects-link"); // Highlight Projects tab
+
+    // Add event listeners for project links after content is loaded
+    addProjectLinkListeners();
   }
 });
+
+// Function to add event listeners for project links
+function addProjectLinkListeners() {
+  document.querySelectorAll(".project-link").forEach((link) => {
+    link.addEventListener("click", (e) => {
+      e.preventDefault(); // Prevent default link behavior
+      const projectTitle = link.querySelector("h3").textContent;
+      alert(`Redirecting to ${projectTitle} project page...`);
+      // You can replace the alert with actual redirection logic
+      // window.location.href = 'your-project-page-url';
+    });
+  });
+}
