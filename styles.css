@@ -214,7 +214,7 @@ footer {
 .footer-content p {
   font-size: 18px;
   color: #666;
-  margin-bottom: 30px;
+  margin-bottom: 10px;
 }
 
 .social-links {
@@ -233,13 +233,19 @@ footer {
 }
 
 .social-links a:hover {
-  color: #0056b3; /* Darker color on hover */
+  color: black;
 }
 
 .footer-credits {
   font-size: 14px;
-  color: #999; /* Light color for credits */
+  color: #999;
   margin-top: 20px;
+}
+
+.copyright {
+  font-size: 14px;
+  color: #999;
+  margin-top: 0px;
 }
 
 /* ===== Responsive Styles ===== */
