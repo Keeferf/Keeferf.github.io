@@ -1,6 +1,6 @@
 // script.js
 
-// Function to load content dynamically
+// --- Content Loading and Navigation ---
 function loadContent(url) {
   fetch(url)
     .then((response) => response.text())
@@ -12,14 +12,13 @@ function loadContent(url) {
     });
 }
 
-// Function to update navigation link styles
 function updateNavStyles(selectedLinkId) {
   const navLinks = document.querySelectorAll(".header-right nav a");
   navLinks.forEach((link) => {
     if (link.id === selectedLinkId) {
-      link.classList.add("active"); // Add active class for selected link
+      link.classList.add("active");
     } else {
-      link.classList.remove("active"); // Remove active class for non-selected links
+      link.classList.remove("active");
     }
   });
 }
@@ -27,28 +26,24 @@ function updateNavStyles(selectedLinkId) {
 // Load default content (Projects) on page load
 window.addEventListener("load", () => {
   loadContent("projects.html");
-  updateNavStyles("projects-link"); // Highlight Projects tab by default
-
-  // Add event listeners for project links after content is loaded
+  updateNavStyles("projects-link");
   addProjectLinkListeners();
 });
 
 // Handle navigation clicks
 document.getElementById("projects-link").addEventListener("click", (e) => {
-  e.preventDefault(); // Prevent default link behavior
+  e.preventDefault();
   loadContent("projects.html");
-  updateNavStyles("projects-link"); // Highlight Projects tab
-  history.pushState(null, "", "#projects"); // Update URL hash
-
-  // Add event listeners for project links after content is loaded
+  updateNavStyles("projects-link");
+  history.pushState(null, "", "#projects");
   addProjectLinkListeners();
 });
 
 document.getElementById("about-link").addEventListener("click", (e) => {
-  e.preventDefault(); // Prevent default link behavior
+  e.preventDefault();
   loadContent("about.html");
-  updateNavStyles("about-link"); // Highlight About tab
-  history.pushState(null, "", "#about"); // Update URL hash
+  updateNavStyles("about-link");
+  history.pushState(null, "", "#about");
 });
 
 // Handle browser back/forward navigation
@@ -56,25 +51,39 @@ window.addEventListener("popstate", () => {
   const hash = window.location.hash;
   if (hash === "#about") {
     loadContent("about.html");
-    updateNavStyles("about-link"); // Highlight About tab
+    updateNavStyles("about-link");
   } else {
     loadContent("projects.html");
-    updateNavStyles("projects-link"); // Highlight Projects tab
-
-    // Add event listeners for project links after content is loaded
+    updateNavStyles("projects-link");
     addProjectLinkListeners();
   }
 });
 
-// Function to add event listeners for project links
+// Project Link Listeners
 function addProjectLinkListeners() {
   document.querySelectorAll(".project-link").forEach((link) => {
     link.addEventListener("click", (e) => {
-      e.preventDefault(); // Prevent default link behavior
+      e.preventDefault();
       const projectTitle = link.querySelector("h3").textContent;
       alert(`Redirecting to ${projectTitle} project page...`);
-      // You can replace the alert with actual redirection logic
-      // window.location.href = 'your-project-page-url';
     });
   });
 }
+
+// Gradient Scroll Effect
+window.addEventListener("scroll", () => {
+  const scrollPosition = window.scrollY;
+  const documentHeight =
+    document.documentElement.scrollHeight - window.innerHeight;
+  const scrollPercentage = (scrollPosition / documentHeight) * 100;
+
+  const startColor = [255, 255, 255]; // White
+  const endColor = [160, 160, 160]; // Gray
+
+  const currentColor = startColor.map((start, i) => {
+    return start + (endColor[i] - start) * (scrollPercentage / 100);
+  });
+
+  const bgColor = `rgb(${currentColor.join(",")})`;
+  document.body.style.background = `linear-gradient(180deg, ${bgColor} 0%, ${bgColor} 100%)`;
+});

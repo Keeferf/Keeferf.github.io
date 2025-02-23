@@ -19,6 +19,10 @@ body {
   background-attachment: fixed;
   background-size: 100% 200%;
   color: #333;
+  background: linear-gradient(180deg, #ffffff 0%, #e0e0e0 100%);
+  background-attachment: fixed;
+  background-size: 100% 200%;
+  transition: background 0.5s ease;
 }
 
 /* ===== Header Section ===== */
