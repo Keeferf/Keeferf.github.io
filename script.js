@@ -4,6 +4,8 @@ function loadContent(url) {
     .then((response) => response.text())
     .then((html) => {
       document.getElementById("main-content").innerHTML = html;
+      // Add tilt effect listeners after content is loaded
+      addTiltEffectListeners();
     })
     .catch((error) => {
       console.error("Error loading content:", error);
@@ -42,6 +44,8 @@ window.addEventListener("load", () => {
     updateNavStyles("projects-link");
     addProjectLinkListeners();
   }
+  // Add tilt effect listeners after initial content load
+  addTiltEffectListeners();
 });
 
 // Handle navigation clicks
@@ -85,3 +89,56 @@ function addProjectLinkListeners() {
     });
   });
 }
+
+// Function to calculate the tilt based on mouse position
+function applyTiltEffect(event, element) {
+  const rect = element.getBoundingClientRect();
+  const mouseX = event.clientX - rect.left; // X position within the element
+  const mouseY = event.clientY - rect.top; // Y position within the element
+
+  const centerX = rect.width / 2;
+  const centerY = rect.height / 2;
+
+  // Increase the multiplier to increase the tilt angle
+  const tiltMultiplier = 25; // Adjust this value to control the tilt angle
+
+  // Calculate the tilt angles based on mouse position
+  const tiltX = ((centerY - mouseY) / centerY) * tiltMultiplier; // Tilt up/down
+  const tiltY = ((mouseX - centerX) / centerX) * tiltMultiplier; // Tilt left/right
+
+  // Apply the tilt transform
+  element.style.transform = `perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale(1.05)`;
+  element.style.boxShadow = `0 10px 20px rgba(0, 0, 0, 0.2)`;
+}
+
+// Function to reset the tilt effect
+function resetTiltEffect(element) {
+  element.style.transform =
+    "perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1)";
+  element.style.boxShadow = "none";
+}
+
+// Add event listeners to all images in watching-images and travel-images
+function addTiltEffectListeners() {
+  document
+    .querySelectorAll(".watching-images img, .travel-images img")
+    .forEach((img) => {
+      img.addEventListener("mousemove", (e) => {
+        applyTiltEffect(e, img);
+      });
+
+      img.addEventListener("mouseleave", () => {
+        resetTiltEffect(img);
+      });
+    });
+}
+
+// Ensure tilt effect listeners are added after content is loaded
+document.addEventListener("DOMContentLoaded", () => {
+  addTiltEffectListeners();
+});
+
+// Add tilt effect listeners after content is loaded dynamically
+window.addEventListener("load", () => {
+  addTiltEffectListeners();
+});
