@@ -188,6 +188,64 @@ header {
   transform: scale(1.05);
 }
 
+/* ===== About Section Styles ===== */
+.about-container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.about-container h2 {
+  font-size: 72px;
+  color: #666;
+  margin-bottom: 40px;
+  font-family: var(--font-inter);
+}
+
+.about-content {
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
+  margin-bottom: 100px;
+}
+
+.about-text {
+  flex: 1; /* Takes up half the width */
+  max-width: 50%; /* Ensures it only takes up half the width */
+}
+
+.about-text a {
+  color: var(--accent-color);
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+.about-text a:hover {
+  color: var(--hover-color);
+  text-decoration: underline;
+}
+
+.about-image {
+  flex: 1; /* Takes up the other half of the width */
+  max-width: 50%; /* Ensures it only takes up half the width */
+}
+
+.about-image img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px; /* Optional: Adds rounded corners to the image */
+}
+
+/* If you want to add additional text instead of an image */
+.additional-text {
+  flex: 1;
+  max-width: 50%;
+  padding: 20px;
+  background-color: #f0f0f0; /* Optional: Adds a background color */
+  border-radius: 10px; /* Optional: Adds rounded corners */
+}
+
 /* ===== Other Interests Section Styles ===== */
 .other-interests {
   padding: 0px;
@@ -270,30 +328,6 @@ header {
 
 .watching-images img:hover {
   transform: scale(1.05); /* Slightly enlarge on hover */
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .interests-content {
-    flex-direction: column; /* Stack text and images vertically on smaller screens */
-  }
-
-  .watching-images {
-    grid-template-columns: repeat(
-      2,
-      1fr
-    ); /* 2 images per row on smaller screens */
-    max-width: 100%; /* Allow the grid to take full width */
-  }
-}
-
-@media (max-width: 480px) {
-  .watching-images {
-    grid-template-columns: repeat(
-      1,
-      1fr
-    ); /* 1 image per row on very small screens */
-  }
 }
 
 /* ===== Footer Section ===== */
