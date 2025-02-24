@@ -2,9 +2,9 @@
 :root {
   --header-bg: rgba(51, 51, 51, 0);
   --footer-bg: rgba(51, 51, 51, 0);
-  --text-color: #000;
-  --accent-color: #007bff;
-  --hover-color: #0056b3;
+  --text-color: black;
+  --accent-color: #333;
+  --hover-color: black;
   --header-height: 80px;
   --max-width: 1168px;
   --font-inter: "Inter", sans-serif;
@@ -114,7 +114,7 @@ header {
 /* ===== Projects Section ===== */
 #projects h2.projects-heading {
   font-family: var(--font-inter);
-  font-size: 60px;
+  font-size: 72px;
   color: #666;
   margin: 0px 0px 75px 0px;
   padding: 0;
@@ -180,7 +180,6 @@ header {
   transition: transform 0.3s ease;
 }
 
-/* Apply hover effects when the project container is hovered */
 .project:hover .project-preview {
   background-color: #f0f0f0;
 }
@@ -189,72 +188,112 @@ header {
   transform: scale(1.05);
 }
 
-/* ===== About Section Styles ===== */
-#about {
-  padding: 60px 20px;
+/* ===== Other Interests Section Styles ===== */
+.other-interests {
+  padding: 0px;
   max-width: var(--max-width);
   margin: 0 auto;
 }
 
-.about-container {
-  text-align: left;
-}
-
-.about-container h2 {
-  font-size: 60px;
+.other-interests h2 {
+  font-size: 72px;
   color: #666;
   margin-bottom: 40px;
   font-family: var(--font-inter);
 }
 
-.about-content {
+.interests-content {
   display: flex;
-  gap: 40px; /* Space between text and image */
-  align-items: center; /* Vertically center the content */
+  gap: 40px;
+  align-items: flex-start; /* Align items to the top */
+  margin-bottom: 150px;
 }
 
-.about-text {
-  flex: 1; /* Takes up half the width */
+.interests-list {
+  flex: 1;
+  min-width: 300px; /* Set a minimum width for the text section */
 }
 
-.about-text p {
+.interests-list p {
   font-size: 18px;
   line-height: 1.8;
   color: #333;
   margin-bottom: 20px;
 }
 
-.about-text strong {
-  color: #000;
-  font-weight: 600;
+.interests-list ul {
+  list-style-type: none;
+  padding: 0;
 }
 
-.resume-link {
-  display: inline-block;
-  margin-top: 20px;
-  padding: 10px 20px;
-  background-color: var(--accent-color);
-  color: white;
-  text-decoration: none;
+.interests-list ul li {
   font-size: 18px;
+  color: #666;
+  margin-bottom: 10px;
+}
+
+.letterboxd-link {
+  color: var(--accent-color);
+  text-decoration: none;
   font-weight: bold;
-  border-radius: 5px;
-  transition: background-color 0.3s ease;
+  transition: color 0.3s ease;
 }
 
-.resume-link:hover {
-  background-color: var(--hover-color);
+.letterboxd-link:hover {
+  color: var(--hover-color);
+  text-decoration: underline;
 }
 
-.about-image {
-  flex: 1; /* Takes up half the width */
-  text-align: center; /* Center the image */
+.interests-list h3 {
+  font-size: 36px;
+  margin: 0px 0px;
+  color: black;
+  font-family: var(--font-inter);
 }
 
-.about-image img {
-  max-width: 100%;
-  height: auto;
-  border-radius: 15px; /* Optional: Add rounded corners to the image */
+/* ===== Currently Watching Section Styles ===== */
+.watching-images {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 images per row */
+  gap: 10px; /* Gap between images */
+  max-width: 600px; /* Limit the maximum width of the image grid */
+}
+
+.watching-images img {
+  width: 100%; /* Make images responsive within the grid */
+  height: auto; /* Maintain aspect ratio */
+  border-radius: 10px; /* Smaller border radius for small images */
+  object-fit: cover; /* Ensure images cover the box without distortion */
+  transition: transform 0.3s ease;
+}
+
+.watching-images img:hover {
+  transform: scale(1.2); /* Slightly enlarge on hover */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .interests-content {
+    flex-direction: column; /* Stack text and images vertically on smaller screens */
+  }
+
+  .watching-images {
+    grid-template-columns: repeat(
+      2,
+      1fr
+    ); /* 2 images per row on smaller screens */
+    max-width: 100%; /* Allow the grid to take full width */
+  }
+}
+
+@media (max-width: 480px) {
+  .watching-images {
+    grid-template-columns: repeat(
+      1,
+      1fr
+    ); /* 1 image per row on very small screens */
+  }
 }
 
 /* ===== Footer Section ===== */

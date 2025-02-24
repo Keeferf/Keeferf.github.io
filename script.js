@@ -1,6 +1,4 @@
-// script.js
-
-// --- Content Loading and Navigation ---
+// Content Loading and Navigation
 function loadContent(url) {
   fetch(url)
     .then((response) => response.text())
@@ -23,11 +21,27 @@ function updateNavStyles(selectedLinkId) {
   });
 }
 
-// Load default content (Projects) on page load
+// Store the current page state in localStorage
+function storePageState(state) {
+  localStorage.setItem("currentPage", state);
+}
+
+// Load the stored page state from localStorage
+function loadPageState() {
+  return localStorage.getItem("currentPage");
+}
+
+// Load default content (Projects) on page load if no state is stored
 window.addEventListener("load", () => {
-  loadContent("projects.html");
-  updateNavStyles("projects-link");
-  addProjectLinkListeners();
+  const currentPage = loadPageState();
+  if (currentPage === "#about") {
+    loadContent("about.html");
+    updateNavStyles("about-link");
+  } else {
+    loadContent("projects.html");
+    updateNavStyles("projects-link");
+    addProjectLinkListeners();
+  }
 });
 
 // Handle navigation clicks
@@ -36,6 +50,7 @@ document.getElementById("projects-link").addEventListener("click", (e) => {
   loadContent("projects.html");
   updateNavStyles("projects-link");
   history.pushState(null, "", "#projects");
+  storePageState("#projects");
   addProjectLinkListeners();
 });
 
@@ -44,6 +59,7 @@ document.getElementById("about-link").addEventListener("click", (e) => {
   loadContent("about.html");
   updateNavStyles("about-link");
   history.pushState(null, "", "#about");
+  storePageState("#about");
 });
 
 // Handle browser back/forward navigation
