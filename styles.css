@@ -203,47 +203,39 @@ header {
 }
 
 .about-content {
-  display: flex;
-  gap: 40px;
-  align-items: flex-start;
+  display: flex; /* Add Flexbox to align items side by side */
+  gap: 40px; /* Add space between the text and the image */
+  align-items: flex-start; /* Align items to the top */
   margin-bottom: 100px;
 }
 
 .about-text {
-  flex: 1; /* Takes up half the width */
-  max-width: 50%; /* Ensures it only takes up half the width */
+  flex: 1; /* Allow the text to take up available space */
+  max-width: 50%; /* Limit the width to half of the container */
 }
 
-.about-text a {
+.resume-link {
   color: var(--accent-color);
   text-decoration: none;
   font-weight: bold;
   transition: color 0.3s ease;
+  margin-top: 100px;
 }
 
-.about-text a:hover {
+.resume-link:hover {
   color: var(--hover-color);
   text-decoration: underline;
 }
 
-.about-image {
-  flex: 1; /* Takes up the other half of the width */
-  max-width: 50%; /* Ensures it only takes up half the width */
+.additional-about {
+  flex: 1; /* Allow the image to take up available space */
+  max-width: 50%; /* Limit the width to half of the container */
 }
 
-.about-image img {
-  width: 100%;
-  height: auto;
+.additional-about img {
+  width: 100%; /* Make the image responsive */
+  height: auto; /* Maintain aspect ratio */
   border-radius: 10px; /* Optional: Adds rounded corners to the image */
-}
-
-/* If you want to add additional text instead of an image */
-.additional-text {
-  flex: 1;
-  max-width: 50%;
-  padding: 20px;
-  background-color: #f0f0f0; /* Optional: Adds a background color */
-  border-radius: 10px; /* Optional: Adds rounded corners */
 }
 
 /* ===== Other Interests Section Styles ===== */
@@ -267,24 +259,24 @@ header {
   margin-bottom: 150px;
 }
 
-.interests-list {
+.watching-list {
   flex: 1;
   min-width: 300px; /* Set a minimum width for the text section */
 }
 
-.interests-list p {
+.watching-list p {
   font-size: 18px;
   line-height: 1.8;
   color: #333;
   margin-bottom: 20px;
 }
 
-.interests-list ul {
+.watching-list ul {
   list-style-type: none;
   padding: 0;
 }
 
-.interests-list ul li {
+.watching-list ul li {
   font-size: 18px;
   color: #666;
   margin-bottom: 10px;
@@ -302,7 +294,7 @@ header {
   text-decoration: underline;
 }
 
-.interests-list h3 {
+.watching-list h3 {
   font-size: 32px;
   margin: 0px 0px;
   color: black;
@@ -313,20 +305,106 @@ header {
 .watching-images {
   flex: 1;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr); /* 4 columns */
+  grid-template-rows: repeat(2, 1fr); /* 2 rows */
   gap: 10px;
-  max-width: 600px;
+  max-width: 800px; /* Adjust the max-width to fit 4 images in a row */
 }
 
 .watching-images img {
   width: 100%; /* Make images responsive within the grid */
-  height: auto; /* Maintain aspect ratio */
+  height: 200px; /* Maintain aspect ratio */
   border-radius: 10px; /* Smaller border radius for small images */
   object-fit: cover; /* Ensure images cover the box without distortion */
   transition: transform 0.3s ease;
 }
 
 .watching-images img:hover {
+  transform: scale(1.05); /* Slightly enlarge on hover */
+}
+
+/* ===== Travel Section Styles ===== */
+.travel-section {
+  padding: 0px;
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+.travel-section h2 {
+  font-size: 72px;
+  color: #666;
+  margin-bottom: 40px;
+  font-family: var(--font-inter);
+}
+
+.travel-content {
+  display: flex;
+  gap: 40px;
+  align-items: flex-start; /* Align items to the top */
+  margin-bottom: 150px;
+}
+
+.travel-list {
+  flex: 1;
+  min-width: 300px; /* Set a minimum width for the text section */
+}
+
+.travel-list p {
+  font-size: 18px;
+  line-height: 1.8;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.travel-list ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.travel-list ul li {
+  font-size: 18px;
+  color: #666;
+  margin-bottom: 10px;
+}
+
+.travel-link {
+  color: var(--accent-color);
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+.travel-link:hover {
+  color: var(--hover-color);
+  text-decoration: underline;
+}
+
+.travel-list h3 {
+  font-size: 32px;
+  margin: 0px 0px;
+  color: black;
+  font-family: var(--font-inter);
+}
+
+/* ===== Travel Images Section Styles ===== */
+.travel-images {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 columns */
+  grid-template-rows: repeat(2, 1fr); /* 2 rows */
+  gap: 10px;
+  max-width: 800px; /* Adjust the max-width to fit 4 images in a row */
+}
+
+.travel-images img {
+  width: 100%; /* Make images responsive within the grid */
+  height: 200px; /* Set a fixed height for all images */
+  border-radius: 10px; /* Smaller border radius for small images */
+  object-fit: cover; /* Ensure images cover the box without distortion */
+  transition: transform 0.3s ease;
+}
+
+.travel-images img:hover {
   transform: scale(1.05); /* Slightly enlarge on hover */
 }
 
