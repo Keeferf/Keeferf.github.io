@@ -245,7 +245,7 @@ header {
 }
 
 .interests-list h3 {
-  font-size: 36px;
+  font-size: 32px;
   margin: 0px 0px;
   color: black;
   font-family: var(--font-inter);
@@ -255,9 +255,9 @@ header {
 .watching-images {
   flex: 1;
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* 3 images per row */
-  gap: 10px; /* Gap between images */
-  max-width: 600px; /* Limit the maximum width of the image grid */
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  max-width: 600px;
 }
 
 .watching-images img {
@@ -269,7 +269,7 @@ header {
 }
 
 .watching-images img:hover {
-  transform: scale(1.2); /* Slightly enlarge on hover */
+  transform: scale(1.05); /* Slightly enlarge on hover */
 }
 
 /* Responsive adjustments */
