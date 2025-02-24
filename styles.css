@@ -21,15 +21,6 @@ body {
   color: #333;
 }
 
-/* ===== Disable Image Downloading ===== */
-img {
-  pointer-events: none; /* Disable click events */
-  user-select: none; /* Prevent text selection */
-  -webkit-user-drag: none; /* Disable dragging in WebKit browsers */
-  -moz-user-drag: none; /* Disable dragging in Firefox */
-  -ms-user-drag: none; /* Disable dragging in IE/Edge */
-}
-
 /* ===== Header Section ===== */
 header {
   display: flex;
