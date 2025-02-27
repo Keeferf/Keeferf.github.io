@@ -203,33 +203,39 @@ header {
 }
 
 .about-content {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 40px;
-  align-items: flex-start;
+  align-items: start;
   margin-bottom: 100px;
 }
 
 .about-text {
-  flex: 1;
-  max-width: 50%;
+  width: 100%;
 }
 
-.resume-link {
+.resume-link,
+.letterboxd-link {
   color: var(--accent-color);
   text-decoration: none;
   font-weight: bold;
   transition: color 0.3s ease;
-  margin-top: 100px;
 }
 
-.resume-link:hover {
+.resume-link {
+  font-size: 20px;
+  margin-top: 75px;
+  display: block;
+}
+
+.resume-link:hover,
+.letterboxd-link:hover {
   color: var(--hover-color);
   text-decoration: underline;
 }
 
 .additional-about {
-  flex: 1;
-  max-width: 50%;
+  width: 100%;
 }
 
 .additional-about img {
@@ -282,19 +288,8 @@ header {
   margin-bottom: 10px;
 }
 
-.letterboxd-link {
-  color: var(--accent-color);
-  text-decoration: none;
-  font-weight: bold;
-  transition: color 0.3s ease;
-}
-
-.letterboxd-link:hover {
-  color: var(--hover-color);
-  text-decoration: underline;
-}
-
-.watching-list h3 {
+.watching-list h3,
+.travel-list h3 {
   font-size: 32px;
   margin: 0px 0px;
   color: black;
@@ -326,20 +321,7 @@ header {
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
-/* ===== Travel Section Styles ===== */
-.travel-section {
-  padding: 0px;
-  max-width: var(--max-width);
-  margin: 0 auto;
-}
-
-.travel-section h2 {
-  font-size: 72px;
-  color: #666;
-  margin-bottom: 40px;
-  font-family: var(--font-inter);
-}
-
+/* ===== Travel Content Section Styles ===== */
 .travel-content {
   display: flex;
   gap: 40px;
@@ -352,36 +334,6 @@ header {
   min-width: 300px;
 }
 
-.travel-list p {
-  font-size: 18px;
-  line-height: 1.8;
-  color: #333;
-  margin-bottom: 20px;
-}
-
-.travel-list ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-.travel-list ul li {
-  font-size: 18px;
-  color: #666;
-  margin-bottom: 10px;
-}
-
-.travel-link {
-  color: var(--accent-color);
-  text-decoration: none;
-  font-weight: bold;
-  transition: color 0.3s ease;
-}
-
-.travel-link:hover {
-  color: var(--hover-color);
-  text-decoration: underline;
-}
-
 .travel-list h3 {
   font-size: 32px;
   margin: 0px 0px;
@@ -389,7 +341,13 @@ header {
   font-family: var(--font-inter);
 }
 
-/* ===== Travel Images Section Styles ===== */
+.travel-list p {
+  font-size: 18px;
+  line-height: 1.8;
+  color: #333;
+  margin-bottom: 20px;
+}
+
 .travel-images {
   flex: 1;
   display: grid;
@@ -501,6 +459,21 @@ footer {
 
   .header-right a {
     font-size: 16px;
+  }
+
+  .about-content {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .interests-content,
+  .travel-content {
+    flex-direction: column; /* Stack text and images vertically on small screens */
+  }
+
+  .watching-images,
+  .travel-images {
+    grid-template-columns: repeat(2, 1fr); /* 2 columns on small screens */
   }
 
   footer {
