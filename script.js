@@ -4,22 +4,32 @@ function loadContent(url) {
     .then((response) => response.text())
     .then((html) => {
       document.getElementById("main-content").innerHTML = html;
-      // Add tilt effect listeners after content is loaded
-      addTiltEffectListeners();
+      if (url.includes("project-template.html")) {
+        loadProjectDetails(); // Load project details if it's project-template.html
+      } else {
+        addProjectLinkListeners(); // Add listeners for project links if it's projects.html
+      }
+      addTiltEffectListeners(); // Add tilt effect listeners after content is loaded
     })
     .catch((error) => {
       console.error("Error loading content:", error);
     });
 }
 
-function updateNavStyles(selectedLinkId) {
-  const navLinks = document.querySelectorAll(".header-right nav a");
-  navLinks.forEach((link) => {
-    if (link.id === selectedLinkId) {
-      link.classList.add("active");
-    } else {
-      link.classList.remove("active");
-    }
+// Function to handle project link clicks
+function handleProjectLinkClick(e) {
+  e.preventDefault(); // Prevent default link behavior
+  const projectUrl = e.currentTarget.getAttribute("href"); // Get the absolute URL from the link
+  loadContent(projectUrl); // Load the project-template.html content
+  history.pushState(null, "", projectUrl); // Update the URL
+  storePageState(projectUrl); // Store the page state (if needed)
+}
+
+// Add event listeners to project links
+function addProjectLinkListeners() {
+  const projectLinks = document.querySelectorAll(".project-link");
+  projectLinks.forEach((link) => {
+    link.addEventListener("click", handleProjectLinkClick);
   });
 }
 
@@ -42,9 +52,9 @@ window.addEventListener("load", () => {
   } else {
     loadContent("projects.html");
     updateNavStyles("projects-link");
+    addProjectLinkListeners(); // Add listeners for project links
   }
-  // Add tilt effect listeners after initial content load
-  addTiltEffectListeners();
+  addTiltEffectListeners(); // Add tilt effect listeners after initial content load
 });
 
 // Handle navigation clicks
@@ -124,7 +134,60 @@ document.addEventListener("DOMContentLoaded", () => {
   addTiltEffectListeners();
 });
 
-// Add tilt effect listeners after content is loaded dynamically
-window.addEventListener("load", () => {
-  addTiltEffectListeners();
-});
+// Function to get the query parameter from the URL
+function getQueryParam(param) {
+  const urlParams = new URLSearchParams(window.location.search);
+  return urlParams.get(param);
+}
+
+// Function to load project details from projects.json
+function loadProjectDetails() {
+  const projectId = getQueryParam("id");
+
+  // Fetch the project data from projects.json
+  fetch("projects.json")
+    .then((response) => response.json())
+    .then((projects) => {
+      // Find the project with the matching ID
+      const project = projects.find((p) => p.id === projectId);
+
+      if (project) {
+        // Populate the project details in the HTML
+        document.getElementById("project-title").textContent = project.title;
+        document.getElementById("project-subtitle").textContent =
+          project.subtitle;
+        document.getElementById("project-duration").textContent =
+          project.duration;
+        document.getElementById("project-brief").textContent = project.brief;
+
+        const responsibilitiesList = document.getElementById(
+          "project-responsibilities"
+        );
+        responsibilitiesList.innerHTML = project.responsibilities
+          .map((responsibility) => `<li>${responsibility}</li>`)
+          .join("");
+
+        const technologiesList = document.getElementById(
+          "project-technologies"
+        );
+        technologiesList.innerHTML = project.technologies
+          .map((technology) => `<li>${technology}</li>`)
+          .join("");
+
+        document.getElementById("project-outcome").textContent =
+          project.outcome;
+      } else {
+        // If the project is not found, display an error message
+        document.getElementById("project-details").innerHTML =
+          "<p>Project not found.</p>";
+      }
+    })
+    .catch((error) => {
+      console.error("Error fetching project data:", error);
+      document.getElementById("project-details").innerHTML =
+        "<p>Error loading project details.</p>";
+    });
+}
+
+// Call the function to load project details when the page loads
+window.addEventListener("load", loadProjectDetails);
