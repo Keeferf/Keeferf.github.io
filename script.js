@@ -6,10 +6,6 @@ function loadContent(url) {
       document.getElementById("main-content").innerHTML = html;
       // Add tilt effect listeners after content is loaded
       addTiltEffectListeners();
-      // Add project link listeners if the loaded content is projects.html
-      if (url === "projects.html") {
-        addProjectLinkListeners();
-      }
     })
     .catch((error) => {
       console.error("Error loading content:", error);
@@ -46,7 +42,6 @@ window.addEventListener("load", () => {
   } else {
     loadContent("projects.html");
     updateNavStyles("projects-link");
-    addProjectLinkListeners();
   }
   // Add tilt effect listeners after initial content load
   addTiltEffectListeners();
@@ -59,7 +54,6 @@ document.getElementById("projects-link").addEventListener("click", (e) => {
   updateNavStyles("projects-link");
   history.pushState(null, "", "#projects");
   storePageState("#projects");
-  addProjectLinkListeners();
 });
 
 document.getElementById("about-link").addEventListener("click", (e) => {
@@ -79,20 +73,8 @@ window.addEventListener("popstate", () => {
   } else {
     loadContent("projects.html");
     updateNavStyles("projects-link");
-    addProjectLinkListeners();
   }
 });
-
-// Project Link Listeners
-function addProjectLinkListeners() {
-  document.querySelectorAll(".project-link").forEach((link) => {
-    link.addEventListener("click", (e) => {
-      e.preventDefault();
-      const projectTitle = link.querySelector("h3").textContent;
-      alert(`Redirecting to ${projectTitle} project page...`);
-    });
-  });
-}
 
 // Function to calculate the tilt based on mouse position
 function applyTiltEffect(event, element) {
