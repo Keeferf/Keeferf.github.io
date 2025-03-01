@@ -26,9 +26,10 @@ function loadContent(url) {
 function handleProjectLinkClick(e) {
   e.preventDefault(); // Prevent default link behavior
   const projectUrl = e.currentTarget.getAttribute("href"); // Get the URL from the link
-  loadContent(projectUrl); // Load the project-template.html content
-  history.pushState(null, "", projectUrl); // Update the URL
+  loadContent("project-template.html"); // Load the project-template.html content
+  history.pushState({ projectUrl }, "", projectUrl); // Update the URL
   storePageState(projectUrl); // Store the page state
+  loadProjectDetails(); // Ensure project details are loaded
 }
 
 // Add event listeners to project links
@@ -52,7 +53,12 @@ function loadPageState() {
 // Load default content (Projects) on page load if no state is stored
 window.addEventListener("load", () => {
   const currentPage = loadPageState();
-  if (currentPage === "#about") {
+  const projectId = getQueryParam("id");
+
+  if (projectId) {
+    loadContent("project-template.html");
+    loadProjectDetails();
+  } else if (currentPage === "#about") {
     loadContent("about.html");
     updateNavStyles("about-link");
   } else {
@@ -81,9 +87,14 @@ document.getElementById("about-link").addEventListener("click", (e) => {
 });
 
 // Handle browser back/forward navigation
-window.addEventListener("popstate", () => {
+window.addEventListener("popstate", (event) => {
   const hash = window.location.hash;
-  if (hash === "#about") {
+  const projectId = getQueryParam("id");
+
+  if (projectId) {
+    loadContent("project-template.html");
+    loadProjectDetails();
+  } else if (hash === "#about") {
     loadContent("about.html");
     updateNavStyles("about-link");
   } else {

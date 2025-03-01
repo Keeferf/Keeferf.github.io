@@ -6,7 +6,7 @@
   --accent-color: #333;
   --hover-color: black;
   --header-height: 80px;
-  --max-width: 1168px;
+  --max-width: 1168px; /* Defined as 1168px */
   --font-inter: "Inter", sans-serif;
 }
 
@@ -18,7 +18,7 @@ body {
   line-height: 1.6;
   background-attachment: fixed;
   background-size: 100% 200%;
-  color: #333;
+  color: var(--text-color);
 }
 
 /* ===== Header Section ===== */
@@ -32,7 +32,7 @@ header {
   top: 0;
   z-index: 1000;
   height: var(--header-height);
-  max-width: var(--max-width);
+  max-width: var(--max-width); /* Set to 1168px */
   margin: 0 auto;
   width: 100%;
 }
@@ -42,23 +42,19 @@ header {
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  max-width: var(--max-width);
+  max-width: var(--max-width); /* Set to 1168px */
+}
+
+.header-left,
+.header-right {
+  flex: 1;
 }
 
 .header-left {
-  flex: 1;
   text-align: left;
 }
 
-.header-left h1 {
-  margin: 0;
-  font-size: 24px;
-  line-height: 1.5;
-  font-family: var(--font-inter);
-}
-
 .header-right {
-  flex: 1;
   text-align: right;
 }
 
@@ -77,28 +73,24 @@ header {
   transition: color 0.3s ease;
 }
 
-.header-right a.active {
-  color: #000;
-}
-
-.header-right a:not(.active):hover {
+.header-right a.active,
+.header-right a:hover {
   color: #000;
 }
 
 /* ===== Main Content Section ===== */
 #main-content {
   margin: 0 auto;
-  max-width: var(--max-width);
+  max-width: var(--max-width); /* Set to 1168px */
 }
 
 /* ===== Name and Title Section ===== */
 .name-title {
   text-align: left;
-  margin: 100px 0px 200px 0px;
+  margin: 100px 0 200px;
 }
 
 .name-title h1 {
-  font-family: var(--font-inter);
   font-size: 84px;
   margin: 0;
   color: black;
@@ -106,18 +98,15 @@ header {
 
 .name-title h2 {
   font-size: 60px;
-  margin: 0px;
-  font-family: var(--font-inter);
+  margin: 0;
   color: #666;
 }
 
 /* ===== Projects Section ===== */
 #projects h2.projects-heading {
-  font-family: var(--font-inter);
   font-size: 72px;
   color: #666;
-  margin: 0px 0px 75px 0px;
-  padding: 0;
+  margin: 0 0 75px;
 }
 
 .project-link {
@@ -131,9 +120,7 @@ header {
   padding: 20px;
   border: 1px solid #ddd;
   border-radius: 15px;
-  transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .project:hover {
@@ -143,9 +130,8 @@ header {
 
 .project h3 {
   font-size: 36px;
-  margin: 0px 0px;
+  margin: 0;
   color: black;
-  font-family: var(--font-inter);
   transition: transform 0.3s ease;
   transform-origin: left center;
   text-align: left;
@@ -163,7 +149,7 @@ header {
 .project-preview {
   display: block;
   width: 100%;
-  margin: 20px 0px;
+  margin: 20px 0;
   padding: 200px 0;
   background-color: #dcdcdc;
   color: #333;
@@ -190,16 +176,15 @@ header {
 
 /* ===== About Section Styles ===== */
 .about-container {
-  max-width: var(--max-width);
+  max-width: var(--max-width); /* Set to 1168px */
   margin: 0 auto;
-  padding: 0px;
+  padding: 0;
 }
 
 .about-container h2 {
   font-size: 72px;
   color: #666;
   margin-bottom: 40px;
-  font-family: var(--font-inter);
 }
 
 .about-content {
@@ -210,7 +195,8 @@ header {
   margin-bottom: 100px;
 }
 
-.about-text {
+.about-text,
+.additional-about {
   width: 100%;
 }
 
@@ -234,10 +220,6 @@ header {
   text-decoration: underline;
 }
 
-.additional-about {
-  width: 100%;
-}
-
 .additional-about img {
   width: 100%;
   height: auto;
@@ -246,8 +228,8 @@ header {
 
 /* ===== Other Interests Section Styles ===== */
 .other-interests {
-  padding: 0px;
-  max-width: var(--max-width);
+  padding: 0;
+  max-width: var(--max-width); /* Set to 1168px */
   margin: 0 auto;
 }
 
@@ -255,34 +237,38 @@ header {
   font-size: 72px;
   color: #666;
   margin-bottom: 40px;
-  font-family: var(--font-inter);
 }
 
-.interests-content {
+.interests-content,
+.travel-content {
   display: flex;
   gap: 40px;
   align-items: flex-start;
   margin-bottom: 150px;
 }
 
-.watching-list {
+.watching-list,
+.travel-list {
   flex: 1;
   min-width: 300px;
 }
 
-.watching-list p {
+.watching-list p,
+.travel-list p {
   font-size: 18px;
   line-height: 1.8;
   color: #333;
   margin-bottom: 20px;
 }
 
-.watching-list ul {
+.watching-list ul,
+.travel-list ul {
   list-style-type: none;
   padding: 0;
 }
 
-.watching-list ul li {
+.watching-list ul li,
+.travel-list ul li {
   font-size: 18px;
   color: #666;
   margin-bottom: 10px;
@@ -291,63 +277,12 @@ header {
 .watching-list h3,
 .travel-list h3 {
   font-size: 32px;
-  margin: 0px 0px;
+  margin: 0;
   color: black;
-  font-family: var(--font-inter);
 }
 
-/* ===== Watching Images Section Styles ===== */
-.watching-images {
-  flex: 1;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-  gap: 10px;
-  max-width: 800px;
-}
-
-.watching-images img {
-  width: 100%;
-  height: 200px;
-  border-radius: 10px;
-  object-fit: cover;
-  transition:
-    transform 0.05s ease,
-    box-shadow 0.05s ease;
-}
-
-.watching-images img:hover {
-  transform: perspective(1000px) rotateX(15deg) rotateY(15deg) scale(1.05);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-}
-
-/* ===== Travel Content Section Styles ===== */
-.travel-content {
-  display: flex;
-  gap: 40px;
-  align-items: flex-start;
-  margin-bottom: 150px;
-}
-
-.travel-list {
-  flex: 1;
-  min-width: 300px;
-}
-
-.travel-list h3 {
-  font-size: 32px;
-  margin: 0px 0px;
-  color: black;
-  font-family: var(--font-inter);
-}
-
-.travel-list p {
-  font-size: 18px;
-  line-height: 1.8;
-  color: #333;
-  margin-bottom: 20px;
-}
-
+/* ===== Watching and Travel Images Section Styles ===== */
+.watching-images,
 .travel-images {
   flex: 1;
   display: grid;
@@ -357,19 +292,87 @@ header {
   max-width: 800px;
 }
 
+.watching-images img,
 .travel-images img {
   width: 100%;
   height: 200px;
   border-radius: 10px;
   object-fit: cover;
-  transition:
-    transform 0.05s ease,
-    box-shadow 0.05s ease;
+  transition: transform 0.05s ease, box-shadow 0.05s ease;
 }
 
+.watching-images img:hover,
 .travel-images img:hover {
   transform: perspective(1000px) rotateX(15deg) rotateY(15deg) scale(1.05);
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* ===== Project Details Section ===== */
+#project-details {
+  max-width: var(--max-width); /* Set to 1168px */
+  margin: 0 auto;
+}
+
+#project-title {
+  font-size: 48px;
+  font-weight: bold;
+  color: #000;
+  margin-top: 100px;
+}
+
+.project-duration {
+  font-size: 18px;
+  color: #666;
+  margin-bottom: 30px;
+}
+
+.project-duration span {
+  font-weight: bold;
+  color: #000;
+}
+
+.project-brief h3,
+.project-responsibilities h3,
+.project-technologies h3,
+.project-outcome h3 {
+  font-size: 24px;
+  font-weight: bold;
+  color: #000;
+  margin-bottom: 15px;
+}
+
+.project-brief p,
+.project-outcome p {
+  font-size: 18px;
+  line-height: 1.6;
+  color: #333;
+  margin-bottom: 30px;
+}
+
+.project-responsibilities ul,
+.project-technologies ul {
+  list-style-type: none;
+  padding: 0;
+  margin-bottom: 30px;
+}
+
+.project-responsibilities ul li,
+.project-technologies ul li {
+  font-size: 18px;
+  color: #333;
+  margin-bottom: 10px;
+  padding-left: 20px;
+  position: relative;
+}
+
+.project-responsibilities ul li::before,
+.project-technologies ul li::before {
+  content: "•";
+  color: #000;
+  font-size: 24px;
+  position: absolute;
+  left: 0;
+  top: -4px;
 }
 
 /* ===== Footer Section ===== */
@@ -378,10 +381,9 @@ footer {
   padding: 40px 20px;
   color: #333;
   margin-top: 60px;
-  max-width: var(--max-width);
+  max-width: var(--max-width); /* Set to 1168px */
   margin: 0 auto;
   width: 100%;
-  font-family: var(--font-inter);
 }
 
 .footer-content h2 {
@@ -415,16 +417,11 @@ footer {
   color: black;
 }
 
-.footer-credits {
-  font-size: 14px;
-  color: #999;
-  margin-top: 20px;
-}
-
+.footer-credits,
 .copyright {
   font-size: 14px;
   color: #999;
-  margin-top: 0px;
+  margin-top: 20px;
 }
 
 /* ===== Responsive Styles ===== */
@@ -440,10 +437,7 @@ footer {
     align-items: center;
   }
 
-  .header-left {
-    text-align: center;
-  }
-
+  .header-left,
   .header-right {
     text-align: center;
   }
@@ -461,24 +455,41 @@ footer {
     font-size: 16px;
   }
 
-  .about-content {
-    grid-template-columns: 1fr;
-    gap: 20px;
-  }
-
+  .about-content,
   .interests-content,
   .travel-content {
-    flex-direction: column; /* Stack text and images vertically on small screens */
+    grid-template-columns: 1fr;
+    gap: 20px;
+    flex-direction: column;
   }
 
   .watching-images,
   .travel-images {
-    grid-template-columns: repeat(2, 1fr); /* 2 columns on small screens */
+    grid-template-columns: repeat(2, 1fr);
   }
 
   footer {
     padding: 15px;
     font-size: 14px;
+  }
+
+  /* Project Details Responsive Styles */
+  #project-title {
+    font-size: 28px;
+  }
+
+  .project-brief h3,
+  .project-responsibilities h3,
+  .project-technologies h3,
+  .project-outcome h3 {
+    font-size: 22px;
+  }
+
+  .project-brief p,
+  .project-outcome p,
+  .project-responsibilities ul li,
+  .project-technologies ul li {
+    font-size: 16px;
   }
 }
 
@@ -494,5 +505,24 @@ footer {
   footer {
     padding: 10px;
     font-size: 12px;
+  }
+
+  /* Project Details Responsive Styles */
+  #project-title {
+    font-size: 24px;
+  }
+
+  .project-brief h3,
+  .project-responsibilities h3,
+  .project-technologies h3,
+  .project-outcome h3 {
+    font-size: 20px;
+  }
+
+  .project-brief p,
+  .project-outcome p,
+  .project-responsibilities ul li,
+  .project-technologies ul li {
+    font-size: 14px;
   }
 }
