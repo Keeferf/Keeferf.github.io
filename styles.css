@@ -324,11 +324,7 @@ header {
   font-size: 18px;
   color: #666;
   margin-bottom: 30px;
-}
-
-.project-duration span {
   font-weight: bold;
-  color: #000;
 }
 
 .project-brief h3,
