@@ -3,13 +3,19 @@ function loadContent(url) {
   fetch(url)
     .then((response) => response.text())
     .then((html) => {
+      // Load the fetched HTML into the #main-content section
       document.getElementById("main-content").innerHTML = html;
+
+      // If the loaded content is project-template.html, load project details
       if (url.includes("project-template.html")) {
-        loadProjectDetails(); // Load project details if it's project-template.html
+        loadProjectDetails();
       } else {
-        addProjectLinkListeners(); // Add listeners for project links if it's projects.html
+        // Otherwise, add event listeners to project links
+        addProjectLinkListeners();
       }
-      addTiltEffectListeners(); // Add tilt effect listeners after content is loaded
+
+      // Add tilt effect listeners after content is loaded
+      addTiltEffectListeners();
     })
     .catch((error) => {
       console.error("Error loading content:", error);
@@ -19,10 +25,10 @@ function loadContent(url) {
 // Function to handle project link clicks
 function handleProjectLinkClick(e) {
   e.preventDefault(); // Prevent default link behavior
-  const projectUrl = e.currentTarget.getAttribute("href"); // Get the absolute URL from the link
+  const projectUrl = e.currentTarget.getAttribute("href"); // Get the URL from the link
   loadContent(projectUrl); // Load the project-template.html content
   history.pushState(null, "", projectUrl); // Update the URL
-  storePageState(projectUrl); // Store the page state (if needed)
+  storePageState(projectUrl); // Store the page state
 }
 
 // Add event listeners to project links
@@ -86,6 +92,18 @@ window.addEventListener("popstate", () => {
   }
 });
 
+// Function to update navigation styles
+function updateNavStyles(activeLinkId) {
+  const links = document.querySelectorAll(".header-right a");
+  links.forEach((link) => {
+    if (link.id === activeLinkId) {
+      link.classList.add("active");
+    } else {
+      link.classList.remove("active");
+    }
+  });
+}
+
 // Function to calculate the tilt based on mouse position
 function applyTiltEffect(event, element) {
   const rect = element.getBoundingClientRect();
@@ -145,7 +163,7 @@ function loadProjectDetails() {
   const projectId = getQueryParam("id");
 
   // Fetch the project data from projects.json
-  fetch("projects.json")
+  fetch("data/projects.json")
     .then((response) => response.json())
     .then((projects) => {
       // Find the project with the matching ID
@@ -154,10 +172,7 @@ function loadProjectDetails() {
       if (project) {
         // Populate the project details in the HTML
         document.getElementById("project-title").textContent = project.title;
-        document.getElementById("project-subtitle").textContent =
-          project.subtitle;
-        document.getElementById("project-duration").textContent =
-          project.duration;
+        document.getElementById("project-duration").textContent = project.duration;
         document.getElementById("project-brief").textContent = project.brief;
 
         const responsibilitiesList = document.getElementById(
@@ -174,8 +189,7 @@ function loadProjectDetails() {
           .map((technology) => `<li>${technology}</li>`)
           .join("");
 
-        document.getElementById("project-outcome").textContent =
-          project.outcome;
+        document.getElementById("project-outcome").textContent = project.outcome;
       } else {
         // If the project is not found, display an error message
         document.getElementById("project-details").innerHTML =
