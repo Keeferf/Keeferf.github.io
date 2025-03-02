@@ -1,3 +1,8 @@
+// Redirect to index.html#projects if the current page is project.html (regardless of ID)
+if (window.location.pathname.endsWith("project.html")) {
+  window.location.href = "index.html#projects";
+}
+
 // Content Loading and Navigation
 function loadContent(url) {
   fetch(url)
@@ -6,8 +11,8 @@ function loadContent(url) {
       // Load the fetched HTML into the #main-content section
       document.getElementById("main-content").innerHTML = html;
 
-      // If the loaded content is project-template.html, load project details
-      if (url.includes("project-template.html")) {
+      // If the loaded content is project.html, load project details
+      if (url.includes("project.html")) {
         loadProjectDetails();
       } else {
         // Otherwise, add event listeners to project links
@@ -26,7 +31,7 @@ function loadContent(url) {
 function handleProjectLinkClick(e) {
   e.preventDefault(); // Prevent default link behavior
   const projectUrl = e.currentTarget.getAttribute("href"); // Get the URL from the link
-  loadContent("project-template.html"); // Load the project-template.html content
+  loadContent("project.html"); // Load the project.html content
   history.pushState({ projectUrl }, "", projectUrl); // Update the URL
   storePageState(projectUrl); // Store the page state
   loadProjectDetails(); // Ensure project details are loaded
@@ -52,19 +57,20 @@ function loadPageState() {
 
 // Load default content (Projects) on page load if no state is stored
 window.addEventListener("load", () => {
-  const currentPage = loadPageState();
   const projectId = getQueryParam("id");
 
   if (projectId) {
-    loadContent("project-template.html");
+    loadContent("project.html");
     loadProjectDetails();
-  } else if (currentPage === "#about") {
-    loadContent("about.html");
-    updateNavStyles("about-link");
   } else {
-    loadContent("projects.html");
-    updateNavStyles("projects-link");
-    addProjectLinkListeners(); // Add listeners for project links
+    // Redirect to index.html#projects if no project ID is present
+    if (!window.location.pathname.endsWith("index.html")) {
+      window.location.href = "index.html#projects";
+    } else {
+      loadContent("projects.html");
+      updateNavStyles("projects-link");
+      addProjectLinkListeners(); // Add listeners for project links
+    }
   }
   addTiltEffectListeners(); // Add tilt effect listeners after initial content load
 });
@@ -72,29 +78,22 @@ window.addEventListener("load", () => {
 // Handle navigation clicks
 document.getElementById("projects-link").addEventListener("click", (e) => {
   e.preventDefault();
-  loadContent("projects.html");
-  updateNavStyles("projects-link");
-  history.pushState(null, "", "#projects");
-  storePageState("#projects");
+  window.location.href = "index.html#projects"; // Navigate to index.html with the projects hash
 });
 
 document.getElementById("about-link").addEventListener("click", (e) => {
   e.preventDefault();
-  loadContent("about.html");
-  updateNavStyles("about-link");
-  history.pushState(null, "", "#about");
-  storePageState("#about");
+  window.location.href = "index.html#about"; // Navigate to index.html with the about hash
 });
 
 // Handle browser back/forward navigation
 window.addEventListener("popstate", (event) => {
-  const hash = window.location.hash;
   const projectId = getQueryParam("id");
 
   if (projectId) {
-    loadContent("project-template.html");
+    loadContent("project.html");
     loadProjectDetails();
-  } else if (hash === "#about") {
+  } else if (window.location.hash === "#about") {
     loadContent("about.html");
     updateNavStyles("about-link");
   } else {
@@ -183,7 +182,8 @@ function loadProjectDetails() {
       if (project) {
         // Populate the project details in the HTML
         document.getElementById("project-title").textContent = project.title;
-        document.getElementById("project-duration").textContent = project.duration;
+        document.getElementById("project-duration").textContent =
+          project.duration;
         document.getElementById("project-brief").textContent = project.brief;
 
         const responsibilitiesList = document.getElementById(
@@ -200,7 +200,8 @@ function loadProjectDetails() {
           .map((technology) => `<li>${technology}</li>`)
           .join("");
 
-        document.getElementById("project-outcome").textContent = project.outcome;
+        document.getElementById("project-outcome").textContent =
+          project.outcome;
       } else {
         // If the project is not found, display an error message
         document.getElementById("project-details").innerHTML =
