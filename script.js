@@ -50,6 +50,11 @@ function loadPageState() {
   return localStorage.getItem("currentPage");
 }
 
+// Clear the stored page state in localStorage
+function clearPageState() {
+  localStorage.removeItem("currentPage");
+}
+
 // Load default content (Projects) on page load if no state is stored
 window.addEventListener("load", () => {
   const storedPage = loadPageState(); // Get the stored page state
@@ -57,10 +62,20 @@ window.addEventListener("load", () => {
   if (storedPage) {
     // If a page state is stored, load that page
     loadContent(storedPage);
+
+    // Update the URL to match the stored state
+    if (window.location.href !== storedPage) {
+      history.replaceState({ projectUrl: storedPage }, "", storedPage);
+    }
   } else {
     // Otherwise, load the default content (projects.html)
     loadContent("projects.html");
-    history.replaceState({}, "", "index.html#projects"); // Set the URL to index.html#projects
+
+    // Force the URL to update to index.html#projects
+    if (window.location.hash !== "#projects") {
+      history.replaceState({}, "", "index.html#projects");
+    }
+
     updateNavStyles("projects-link");
   }
 
@@ -73,6 +88,7 @@ document.getElementById("projects-link").addEventListener("click", (e) => {
   e.preventDefault();
   loadContent("projects.html");
   history.pushState({}, "", "index.html#projects"); // Update the URL
+  clearPageState(); // Clear the stored project state
   updateNavStyles("projects-link");
 });
 
@@ -80,6 +96,7 @@ document.getElementById("about-link").addEventListener("click", (e) => {
   e.preventDefault();
   loadContent("about.html");
   history.pushState({}, "", "index.html#about"); // Update the URL
+  clearPageState(); // Clear the stored project state
   updateNavStyles("about-link");
 });
 
@@ -89,18 +106,27 @@ window.addEventListener("popstate", (event) => {
 
   if (url === "#projects") {
     loadContent("projects.html");
+    clearPageState(); // Clear the stored project state
     updateNavStyles("projects-link");
   } else if (url === "#about") {
     loadContent("about.html");
+    clearPageState(); // Clear the stored project state
     updateNavStyles("about-link");
   } else if (event.state && event.state.projectUrl) {
     // If there's a project URL in the state, load that page
     loadContent(event.state.projectUrl);
+    storePageState(event.state.projectUrl); // Store the project state
   } else {
     // Default to loading projects.html
     loadContent("projects.html");
+    clearPageState(); // Clear the stored project state
     updateNavStyles("projects-link");
   }
+});
+
+// Clear localStorage when the website is closed or the tab is refreshed
+window.addEventListener("beforeunload", () => {
+  clearPageState(); // Clear the stored project state
 });
 
 // Function to update navigation styles
