@@ -116,6 +116,10 @@ window.addEventListener("popstate", (event) => {
     loadContent("projects.html");
     clearPageState(); // Clear the stored project state
     updateNavStyles("projects-link");
+  } else if (url === "#experience") {
+    loadContent("experience.html");
+    clearPageState(); // Clear the stored project state
+    updateNavStyles("experience-link");
   } else if (url === "#about") {
     loadContent("about.html");
     clearPageState(); // Clear the stored project state
