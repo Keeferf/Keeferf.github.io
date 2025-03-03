@@ -93,6 +93,9 @@ window.addEventListener("popstate", (event) => {
   } else if (url === "#about") {
     loadContent("about.html");
     updateNavStyles("about-link");
+  } else if (event.state && event.state.projectUrl) {
+    // If there's a project URL in the state, load that page
+    loadContent(event.state.projectUrl);
   } else {
     // Default to loading projects.html
     loadContent("projects.html");
