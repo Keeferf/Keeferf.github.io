@@ -1,3 +1,8 @@
+// Disable browser's scroll restoration
+if (history.scrollRestoration) {
+  history.scrollRestoration = "manual";
+}
+
 // Content Loading and Navigation
 function loadContent(url) {
   fetch(url)
@@ -5,6 +10,9 @@ function loadContent(url) {
     .then((html) => {
       // Load the fetched HTML into the #main-content section
       document.getElementById("main-content").innerHTML = html;
+
+      // Scroll to the top of the page after content is loaded
+      window.scrollTo({ top: 0, behavior: "instant" });
 
       // Add event listeners to project links (if any)
       addProjectLinkListeners();
