@@ -1,9 +1,22 @@
+// Disable browser's scroll restoration
+if (history.scrollRestoration) {
+  history.scrollRestoration = "manual";
+}
+
 // Content Loading and Navigation
 function loadContent(url) {
   fetch(url)
     .then((response) => response.text())
     .then((html) => {
+      // Load the fetched HTML into the #main-content section
       document.getElementById("main-content").innerHTML = html;
+
+      // Scroll to the top of the page after content is loaded
+      window.scrollTo({ top: 0, behavior: "instant" });
+
+      // Add event listeners to project links (if any)
+      addProjectLinkListeners();
+
       // Add tilt effect listeners after content is loaded
       addTiltEffectListeners();
     })
@@ -12,14 +25,26 @@ function loadContent(url) {
     });
 }
 
-function updateNavStyles(selectedLinkId) {
-  const navLinks = document.querySelectorAll(".header-right nav a");
-  navLinks.forEach((link) => {
-    if (link.id === selectedLinkId) {
-      link.classList.add("active");
-    } else {
-      link.classList.remove("active");
-    }
+// Function to handle project link clicks
+function handleProjectLinkClick(e) {
+  e.preventDefault(); // Prevent default link behavior
+  const projectUrl = e.currentTarget.getAttribute("href"); // Get the URL from the link
+
+  // Load the content based on the URL
+  loadContent(projectUrl);
+
+  // Update the URL in the browser's address bar
+  history.pushState({ projectUrl }, "", projectUrl);
+
+  // Store the page state in localStorage
+  storePageState(projectUrl);
+}
+
+// Add event listeners to project links
+function addProjectLinkListeners() {
+  const projectLinks = document.querySelectorAll(".project-link");
+  projectLinks.forEach((link) => {
+    link.addEventListener("click", handleProjectLinkClick);
   });
 }
 
@@ -33,16 +58,35 @@ function loadPageState() {
   return localStorage.getItem("currentPage");
 }
 
+// Clear the stored page state in localStorage
+function clearPageState() {
+  localStorage.removeItem("currentPage");
+}
+
 // Load default content (Projects) on page load if no state is stored
 window.addEventListener("load", () => {
-  const currentPage = loadPageState();
-  if (currentPage === "#about") {
-    loadContent("about.html");
-    updateNavStyles("about-link");
+  const storedPage = loadPageState(); // Get the stored page state
+
+  if (storedPage) {
+    // If a page state is stored, load that page
+    loadContent(storedPage);
+
+    // Update the URL to match the stored state
+    if (window.location.href !== storedPage) {
+      history.replaceState({ projectUrl: storedPage }, "", storedPage);
+    }
   } else {
+    // Otherwise, load the default content (projects.html)
     loadContent("projects.html");
+
+    // Force the URL to update to index.html#projects
+    if (window.location.hash !== "#projects") {
+      history.replaceState({}, "", "index.html#projects");
+    }
+
     updateNavStyles("projects-link");
   }
+
   // Add tilt effect listeners after initial content load
   addTiltEffectListeners();
 });
@@ -51,30 +95,63 @@ window.addEventListener("load", () => {
 document.getElementById("projects-link").addEventListener("click", (e) => {
   e.preventDefault();
   loadContent("projects.html");
+  history.pushState({}, "", "index.html#projects"); // Update the URL
+  clearPageState(); // Clear the stored project state
   updateNavStyles("projects-link");
-  history.pushState(null, "", "#projects");
-  storePageState("#projects");
 });
 
 document.getElementById("about-link").addEventListener("click", (e) => {
   e.preventDefault();
   loadContent("about.html");
+  history.pushState({}, "", "index.html#about"); // Update the URL
+  clearPageState(); // Clear the stored project state
   updateNavStyles("about-link");
-  history.pushState(null, "", "#about");
-  storePageState("#about");
 });
 
 // Handle browser back/forward navigation
-window.addEventListener("popstate", () => {
-  const hash = window.location.hash;
-  if (hash === "#about") {
-    loadContent("about.html");
-    updateNavStyles("about-link");
-  } else {
+window.addEventListener("popstate", (event) => {
+  const url = window.location.hash; // Get the current hash
+
+  if (url === "#projects") {
     loadContent("projects.html");
+    clearPageState(); // Clear the stored project state
+    updateNavStyles("projects-link");
+  } else if (url === "#experience") {
+    loadContent("experience.html");
+    clearPageState(); // Clear the stored project state
+    updateNavStyles("experience-link");
+  } else if (url === "#about") {
+    loadContent("about.html");
+    clearPageState(); // Clear the stored project state
+    updateNavStyles("about-link");
+  } else if (event.state && event.state.projectUrl) {
+    // If there's a project URL in the state, load that page
+    loadContent(event.state.projectUrl);
+    storePageState(event.state.projectUrl); // Store the project state
+  } else {
+    // Default to loading projects.html
+    loadContent("projects.html");
+    clearPageState(); // Clear the stored project state
     updateNavStyles("projects-link");
   }
 });
+
+// Clear localStorage when the website is closed or the tab is refreshed
+window.addEventListener("beforeunload", () => {
+  clearPageState(); // Clear the stored project state
+});
+
+// Function to update navigation styles
+function updateNavStyles(activeLinkId) {
+  const links = document.querySelectorAll(".header-right a");
+  links.forEach((link) => {
+    if (link.id === activeLinkId) {
+      link.classList.add("active");
+    } else {
+      link.classList.remove("active");
+    }
+  });
+}
 
 // Function to calculate the tilt based on mouse position
 function applyTiltEffect(event, element) {
@@ -121,10 +198,5 @@ function addTiltEffectListeners() {
 
 // Ensure tilt effect listeners are added after content is loaded
 document.addEventListener("DOMContentLoaded", () => {
-  addTiltEffectListeners();
-});
-
-// Add tilt effect listeners after content is loaded dynamically
-window.addEventListener("load", () => {
   addTiltEffectListeners();
 });
