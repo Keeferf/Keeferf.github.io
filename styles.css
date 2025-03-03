@@ -120,9 +120,7 @@ header {
   padding: 20px;
   /* border: 1px solid #ddd;
   border-radius: 15px; */
-  transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .project:hover {
@@ -176,27 +174,38 @@ header {
   transform: scale(1.05);
 }
 
-/* ===== Experience Section ===== */
-#experience h2.experience-heading {
+/* ===== Experience Section Styles ===== */
+.experience-container {
+  max-width: var(--max-width); /* Set to 1168px */
+  margin: 0 auto;
+  padding: 0;
+}
+
+.experience-container h2 {
   font-size: 72px;
   color: #666;
-  margin: 0 0 75px;
+  margin-bottom: 40px;
+}
+
+.experience-content {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+  align-items: start;
+  margin-bottom: 100px;
 }
 
 .experience-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 40px;
-  margin-bottom: 100px;
 }
 
 .experience-item {
   padding: 20px;
   border: 1px solid #ddd;
   border-radius: 15px;
-  transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .experience-item:hover {
@@ -352,9 +361,7 @@ header {
   height: 200px;
   border-radius: 10px;
   object-fit: cover;
-  transition:
-    transform 0.05s ease,
-    box-shadow 0.05s ease;
+  transition: transform 0.05s ease, box-shadow 0.05s ease;
 }
 
 .watching-images img:hover,
