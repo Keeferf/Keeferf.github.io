@@ -6,13 +6,8 @@ function loadContent(url) {
       // Load the fetched HTML into the #main-content section
       document.getElementById("main-content").innerHTML = html;
 
-      // If the loaded content is project-template.html, load project details
-      if (url.includes("project-template.html")) {
-        loadProjectDetails();
-      } else {
-        // Otherwise, add event listeners to project links
-        addProjectLinkListeners();
-      }
+      // Add event listeners to project links (if any)
+      addProjectLinkListeners();
 
       // Add tilt effect listeners after content is loaded
       addTiltEffectListeners();
@@ -26,9 +21,15 @@ function loadContent(url) {
 function handleProjectLinkClick(e) {
   e.preventDefault(); // Prevent default link behavior
   const projectUrl = e.currentTarget.getAttribute("href"); // Get the URL from the link
-  loadContent(projectUrl); // Load the project-template.html content
-  history.pushState(null, "", projectUrl); // Update the URL
-  storePageState(projectUrl); // Store the page state
+
+  // Load the content based on the URL
+  loadContent(projectUrl);
+
+  // Update the URL in the browser's address bar
+  history.pushState({ projectUrl }, "", projectUrl);
+
+  // Store the page state in localStorage
+  storePageState(projectUrl);
 }
 
 // Add event listeners to project links
@@ -51,42 +52,49 @@ function loadPageState() {
 
 // Load default content (Projects) on page load if no state is stored
 window.addEventListener("load", () => {
-  const currentPage = loadPageState();
-  if (currentPage === "#about") {
-    loadContent("about.html");
-    updateNavStyles("about-link");
+  const storedPage = loadPageState(); // Get the stored page state
+
+  if (storedPage) {
+    // If a page state is stored, load that page
+    loadContent(storedPage);
   } else {
+    // Otherwise, load the default content (projects.html)
     loadContent("projects.html");
+    history.replaceState({}, "", "index.html#projects"); // Set the URL to index.html#projects
     updateNavStyles("projects-link");
-    addProjectLinkListeners(); // Add listeners for project links
   }
-  addTiltEffectListeners(); // Add tilt effect listeners after initial content load
+
+  // Add tilt effect listeners after initial content load
+  addTiltEffectListeners();
 });
 
 // Handle navigation clicks
 document.getElementById("projects-link").addEventListener("click", (e) => {
   e.preventDefault();
   loadContent("projects.html");
+  history.pushState({}, "", "index.html#projects"); // Update the URL
   updateNavStyles("projects-link");
-  history.pushState(null, "", "#projects");
-  storePageState("#projects");
 });
 
 document.getElementById("about-link").addEventListener("click", (e) => {
   e.preventDefault();
   loadContent("about.html");
+  history.pushState({}, "", "index.html#about"); // Update the URL
   updateNavStyles("about-link");
-  history.pushState(null, "", "#about");
-  storePageState("#about");
 });
 
 // Handle browser back/forward navigation
-window.addEventListener("popstate", () => {
-  const hash = window.location.hash;
-  if (hash === "#about") {
+window.addEventListener("popstate", (event) => {
+  const url = window.location.hash; // Get the current hash
+
+  if (url === "#projects") {
+    loadContent("projects.html");
+    updateNavStyles("projects-link");
+  } else if (url === "#about") {
     loadContent("about.html");
     updateNavStyles("about-link");
   } else {
+    // Default to loading projects.html
     loadContent("projects.html");
     updateNavStyles("projects-link");
   }
@@ -151,57 +159,3 @@ function addTiltEffectListeners() {
 document.addEventListener("DOMContentLoaded", () => {
   addTiltEffectListeners();
 });
-
-// Function to get the query parameter from the URL
-function getQueryParam(param) {
-  const urlParams = new URLSearchParams(window.location.search);
-  return urlParams.get(param);
-}
-
-// Function to load project details from projects.json
-function loadProjectDetails() {
-  const projectId = getQueryParam("id");
-
-  // Fetch the project data from projects.json
-  fetch("data/projects.json")
-    .then((response) => response.json())
-    .then((projects) => {
-      // Find the project with the matching ID
-      const project = projects.find((p) => p.id === projectId);
-
-      if (project) {
-        // Populate the project details in the HTML
-        document.getElementById("project-title").textContent = project.title;
-        document.getElementById("project-duration").textContent = project.duration;
-        document.getElementById("project-brief").textContent = project.brief;
-
-        const responsibilitiesList = document.getElementById(
-          "project-responsibilities"
-        );
-        responsibilitiesList.innerHTML = project.responsibilities
-          .map((responsibility) => `<li>${responsibility}</li>`)
-          .join("");
-
-        const technologiesList = document.getElementById(
-          "project-technologies"
-        );
-        technologiesList.innerHTML = project.technologies
-          .map((technology) => `<li>${technology}</li>`)
-          .join("");
-
-        document.getElementById("project-outcome").textContent = project.outcome;
-      } else {
-        // If the project is not found, display an error message
-        document.getElementById("project-details").innerHTML =
-          "<p>Project not found.</p>";
-      }
-    })
-    .catch((error) => {
-      console.error("Error fetching project data:", error);
-      document.getElementById("project-details").innerHTML =
-        "<p>Error loading project details.</p>";
-    });
-}
-
-// Call the function to load project details when the page loads
-window.addEventListener("load", loadProjectDetails);
