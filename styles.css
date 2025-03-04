@@ -81,7 +81,8 @@ header {
 /* ===== Main Content Section ===== */
 #main-content {
   margin: 0 auto;
-  max-width: var(--max-width); /* Set to 1168px */
+  max-width: var(--max-width);
+  min-height: 70vh;
 }
 
 /* ===== Name and Title Section ===== */
@@ -498,6 +499,10 @@ footer {
 
 /* ===== Responsive Styles ===== */
 @media (max-width: 768px) {
+  #main-content {
+    min-height: 50vh;
+  }
+
   header {
     flex-direction: column;
     height: auto;
