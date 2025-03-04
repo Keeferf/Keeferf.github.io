@@ -34,7 +34,11 @@ function handleProjectLinkClick(e) {
   loadContent(projectUrl);
 
   // Update the URL in the browser's address bar
-  history.pushState({ projectUrl }, "", projectUrl);
+  history.pushState(
+    { projectUrl },
+    "",
+    `index.html#${projectUrl.replace(".html", "")}`
+  );
 
   // Store the page state in localStorage
   storePageState(projectUrl);
@@ -66,17 +70,35 @@ function clearPageState() {
 // Load default content (Projects) on page load if no state is stored
 window.addEventListener("load", () => {
   const storedPage = loadPageState(); // Get the stored page state
+  const currentHash = window.location.hash; // Get the current hash fragment
 
+  // If a page state is stored, load that page
   if (storedPage) {
-    // If a page state is stored, load that page
     loadContent(storedPage);
 
     // Update the URL to match the stored state
     if (window.location.href !== storedPage) {
-      history.replaceState({ projectUrl: storedPage }, "", storedPage);
+      history.replaceState(
+        { projectUrl: storedPage },
+        "",
+        `index.html#${storedPage.replace(".html", "")}`
+      );
     }
-  } else {
-    // Otherwise, load the default content (projects.html)
+
+    // Update the navigation styles based on the stored page
+    updateNavStyles(getActiveLinkId(storedPage));
+  }
+  // If there's a hash fragment in the URL, load the corresponding page
+  else if (currentHash) {
+    const pageToLoad = `${currentHash.replace("#", "")}.html`;
+    loadContent(pageToLoad);
+    storePageState(pageToLoad);
+
+    // Update the navigation styles based on the hash fragment
+    updateNavStyles(getActiveLinkId(pageToLoad));
+  }
+  // Otherwise, load the default content (projects.html)
+  else {
     loadContent("projects.html");
 
     // Force the URL to update to index.html#projects
@@ -84,6 +106,7 @@ window.addEventListener("load", () => {
       history.replaceState({}, "", "index.html#projects");
     }
 
+    // Update the navigation styles for the projects link
     updateNavStyles("projects-link");
   }
 
@@ -91,7 +114,20 @@ window.addEventListener("load", () => {
   addTiltEffectListeners();
 });
 
-// Handle navigation clicks
+// Function to get the active link ID based on the page URL
+function getActiveLinkId(pageUrl) {
+  if (pageUrl.includes("projects.html")) {
+    return "projects-link";
+  } else if (pageUrl.includes("about.html")) {
+    return "about-link";
+  } else if (pageUrl.includes("experience.html")) {
+    return "experience-link";
+  }
+  // Default to projects link if no match is found
+  return "projects-link";
+}
+
+// Handle navigation clicks for the Projects tab
 document.getElementById("projects-link").addEventListener("click", (e) => {
   e.preventDefault();
   loadContent("projects.html");
@@ -100,6 +136,16 @@ document.getElementById("projects-link").addEventListener("click", (e) => {
   updateNavStyles("projects-link");
 });
 
+// Handle navigation clicks for the Experience tab
+document.getElementById("experience-link").addEventListener("click", (e) => {
+  e.preventDefault();
+  loadContent("experience.html");
+  history.pushState({}, "", "index.html#experience"); // Update the URL
+  clearPageState(); // Clear the stored project state
+  updateNavStyles("experience-link");
+});
+
+// Handle navigation clicks for the About tab
 document.getElementById("about-link").addEventListener("click", (e) => {
   e.preventDefault();
   loadContent("about.html");
@@ -128,6 +174,7 @@ window.addEventListener("popstate", (event) => {
     // If there's a project URL in the state, load that page
     loadContent(event.state.projectUrl);
     storePageState(event.state.projectUrl); // Store the project state
+    updateNavStyles(getActiveLinkId(event.state.projectUrl));
   } else {
     // Default to loading projects.html
     loadContent("projects.html");
