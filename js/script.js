@@ -5,23 +5,23 @@ if (history.scrollRestoration) {
 
 // Content Loading and Navigation
 function loadContent(url) {
-  fetch(url)
-    .then((response) => response.text())
+  fetch(url) // Use the full URL (e.g., "pages/projects.html")
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`Failed to load ${url}: ${response.statusText}`);
+      }
+      return response.text();
+    })
     .then((html) => {
-      // Load the fetched HTML into the #main-content section
       document.getElementById("main-content").innerHTML = html;
-
-      // Scroll to the top of the page after content is loaded
       window.scrollTo({ top: 0, behavior: "instant" });
-
-      // Add event listeners to project links (if any)
       addProjectLinkListeners();
-
-      // Add tilt effect listeners after content is loaded
       addTiltEffectListeners();
     })
     .catch((error) => {
       console.error("Error loading content:", error);
+      document.getElementById("main-content").innerHTML =
+        `<p>Error loading content: ${error.message}</p>`;
     });
 }
 
@@ -30,18 +30,14 @@ function handleProjectLinkClick(e) {
   e.preventDefault(); // Prevent default link behavior
   const projectUrl = e.currentTarget.getAttribute("href"); // Get the URL from the link
 
+  console.log("Loading project URL:", projectUrl); // Debugging
+
   // Load the content based on the URL
   loadContent(projectUrl);
 
   // Update the URL in the browser's address bar
-  history.pushState(
-    { projectUrl },
-    "",
-    `index.html#${projectUrl.replace(".html", "")}`
-  );
-
-  // Store the page state in localStorage
-  storePageState(projectUrl);
+  const hashFragment = projectUrl.replace("pages/", "").replace(".html", "");
+  history.pushState({ projectUrl }, "", `index.html#${hashFragment}`);
 }
 
 // Add event listeners to project links
@@ -68,6 +64,7 @@ function clearPageState() {
 }
 
 // Load default content (Projects) on page load if no state is stored
+// Load default content (Projects) on page load if no state is stored
 window.addEventListener("load", () => {
   const storedPage = loadPageState(); // Get the stored page state
   const currentHash = window.location.hash; // Get the current hash fragment
@@ -91,15 +88,15 @@ window.addEventListener("load", () => {
   // If there's a hash fragment in the URL, load the corresponding page
   else if (currentHash) {
     const pageToLoad = `${currentHash.replace("#", "")}.html`;
-    loadContent(pageToLoad);
-    storePageState(pageToLoad);
+    loadContent(`pages/${pageToLoad}`); // Add "pages/" to the path
+    storePageState(`pages/${pageToLoad}`);
 
     // Update the navigation styles based on the hash fragment
     updateNavStyles(getActiveLinkId(pageToLoad));
   }
   // Otherwise, load the default content (projects.html)
   else {
-    loadContent("projects.html");
+    loadContent("pages/projects.html"); // Add "pages/" to the path
 
     // Force the URL to update to index.html#projects
     if (window.location.hash !== "#projects") {
@@ -122,6 +119,13 @@ function getActiveLinkId(pageUrl) {
     return "about-link";
   } else if (pageUrl.includes("experience.html")) {
     return "experience-link";
+  } else if (
+    pageUrl.includes("bookstore-project.html") ||
+    pageUrl.includes("earthub-project.html") ||
+    pageUrl.includes("elevator-sim-project.html") ||
+    pageUrl.includes("misc-projects.html")
+  ) {
+    return "projects-link"; // All project pages mark the "Projects" tab as active
   }
   // Default to projects link if no match is found
   return "projects-link";
@@ -129,29 +133,29 @@ function getActiveLinkId(pageUrl) {
 
 // Handle navigation clicks for the Projects tab
 document.getElementById("projects-link").addEventListener("click", (e) => {
-  e.preventDefault();
-  loadContent("projects.html");
+  e.preventDefault(); // Prevent the default link behavior
+  loadContent("pages/projects.html"); // Load the projects.html content
   history.pushState({}, "", "index.html#projects"); // Update the URL
   clearPageState(); // Clear the stored project state
-  updateNavStyles("projects-link");
+  updateNavStyles("projects-link"); // Highlight the "Projects" tab
 });
 
 // Handle navigation clicks for the Experience tab
 document.getElementById("experience-link").addEventListener("click", (e) => {
-  e.preventDefault();
-  loadContent("experience.html");
+  e.preventDefault(); // Prevent the default link behavior
+  loadContent("pages/experience.html"); // Load the experience.html content
   history.pushState({}, "", "index.html#experience"); // Update the URL
   clearPageState(); // Clear the stored project state
-  updateNavStyles("experience-link");
+  updateNavStyles("experience-link"); // Highlight the "Experience" tab
 });
 
 // Handle navigation clicks for the About tab
 document.getElementById("about-link").addEventListener("click", (e) => {
-  e.preventDefault();
-  loadContent("about.html");
+  e.preventDefault(); // Prevent the default link behavior
+  loadContent("pages/about.html"); // Load the about.html content
   history.pushState({}, "", "index.html#about"); // Update the URL
   clearPageState(); // Clear the stored project state
-  updateNavStyles("about-link");
+  updateNavStyles("about-link"); // Highlight the "About" tab
 });
 
 // Handle browser back/forward navigation
@@ -159,15 +163,15 @@ window.addEventListener("popstate", (event) => {
   const url = window.location.hash; // Get the current hash
 
   if (url === "#projects") {
-    loadContent("projects.html");
+    loadContent("pages/projects.html");
     clearPageState(); // Clear the stored project state
     updateNavStyles("projects-link");
   } else if (url === "#experience") {
-    loadContent("experience.html");
+    loadContent("pages/experience.html");
     clearPageState(); // Clear the stored project state
     updateNavStyles("experience-link");
   } else if (url === "#about") {
-    loadContent("about.html");
+    loadContent("pages/about.html");
     clearPageState(); // Clear the stored project state
     updateNavStyles("about-link");
   } else if (event.state && event.state.projectUrl) {
@@ -177,7 +181,7 @@ window.addEventListener("popstate", (event) => {
     updateNavStyles(getActiveLinkId(event.state.projectUrl));
   } else {
     // Default to loading projects.html
-    loadContent("projects.html");
+    loadContent("pages/projects.html");
     clearPageState(); // Clear the stored project state
     updateNavStyles("projects-link");
   }
