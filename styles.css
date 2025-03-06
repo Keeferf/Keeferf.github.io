@@ -177,6 +177,102 @@ header {
   transform: scale(1.05);
 }
 
+/* ===== Miscellaneous Projects Section Styles ===== */
+.misc-projects-container {
+  max-width: var(--max-width); /* Set to 1168px */
+  margin: 0 auto;
+  padding: 0;
+}
+
+.misc-projects-container h2 {
+  font-size: 72px;
+  color: #666;
+  margin-bottom: 40px;
+}
+
+.misc-projects-content {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+  align-items: start;
+  margin-bottom: 100px;
+}
+
+.misc-projects-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 40px;
+}
+
+.misc-project-item {
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 15px;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.misc-project-item:hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.misc-project-item h3 {
+  font-size: 36px;
+  margin: 0 0 10px;
+  color: black;
+}
+
+.misc-project-item .project-category {
+  font-size: 20px;
+  color: #666;
+  margin: 0 0 10px;
+}
+
+.misc-project-item .project-duration {
+  font-size: 18px;
+  color: #999;
+  margin: 0 0 20px;
+}
+
+.misc-project-item .project-description {
+  font-size: 18px;
+  color: #333;
+  line-height: 1.6;
+  margin-bottom: 20px; /* Added margin to separate description from technologies */
+}
+
+/* Technologies Section Styles (Integrated into .misc-project-item) */
+.misc-project-item h4 {
+  font-size: 20px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.misc-project-item ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.misc-project-item ul li {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 5px;
+  padding-left: 20px;
+  position: relative;
+}
+
+.misc-project-item ul li::before {
+  content: "•";
+  color: #000;
+  font-size: 20px;
+  position: absolute;
+  left: 0;
+  top: -2px;
+}
+
 /* ===== Experience Section Styles ===== */
 .experience-container {
   max-width: var(--max-width); /* Set to 1168px */
@@ -501,4 +597,150 @@ footer {
   font-size: 14px;
   color: #999;
   margin-top: 20px;
+}
+
+/* ===== Mobile Styles ===== */
+@media only screen and (max-width: 640px) {
+  /* General adjustments */
+  body {
+    font-size: 14px; /* Smaller font size for mobile */
+  }
+
+  /* Header adjustments */
+  header {
+    padding: 20px 10px; /* Reduce padding */
+    height: auto; /* Allow header to adjust height */
+  }
+
+  .header-container {
+    flex-direction: column; /* Stack header elements vertically */
+    align-items: center;
+  }
+
+  .header-right nav {
+    gap: 20px; /* Reduce gap between navigation links */
+  }
+
+  .header-right a {
+    font-size: 16px; /* Smaller font size for navigation links */
+  }
+
+  /* Name and Title Section */
+  .name-title {
+    margin: 50px 0 100px; /* Reduce margins */
+  }
+
+  .name-title h1 {
+    font-size: 48px; /* Smaller font size for name */
+  }
+
+  .name-title h2 {
+    font-size: 36px; /* Smaller font size for title */
+  }
+
+  /* Projects Section */
+  #projects h2.projects-heading {
+    font-size: 48px; /* Smaller font size for projects heading */
+    margin-bottom: 40px; /* Reduce margin */
+  }
+
+  .project h3 {
+    font-size: 20px; /* Smaller font size for project titles */
+  }
+
+  .project p {
+    font-size: 14px; /* Smaller font size for project descriptions */
+  }
+
+  .project-preview {
+    padding: 100px 0; /* Reduce padding for project preview */
+    font-size: 30px; /* Smaller font size for project preview text */
+  }
+
+  /* Experience Section */
+  .experience-container h2 {
+    font-size: 48px; /* Smaller font size for experience heading */
+    margin-bottom: 20px; /* Reduce margin */
+  }
+
+  .experience-grid {
+    grid-template-columns: 1fr; /* Stack experience items vertically */
+    gap: 20px; /* Reduce gap between items */
+  }
+
+  .experience-item h3 {
+    font-size: 24px; /* Smaller font size for job titles */
+  }
+
+  .experience-item .company {
+    font-size: 16px; /* Smaller font size for company names */
+  }
+
+  .experience-item .duration {
+    font-size: 14px; /* Smaller font size for duration */
+  }
+
+  .experience-item .description {
+    font-size: 14px; /* Smaller font size for descriptions */
+  }
+
+  /* About Section */
+  .about-container h2 {
+    font-size: 48px; /* Smaller font size for about heading */
+    margin-bottom: 20px; /* Reduce margin */
+  }
+
+  .about-content {
+    grid-template-columns: 1fr; /* Stack about content vertically */
+    gap: 20px; /* Reduce gap between items */
+  }
+
+  .resume-link {
+    font-size: 16px; /* Smaller font size for resume link */
+    margin-top: 40px; /* Reduce margin */
+  }
+
+  /* Other Interests Section */
+  .other-interests h2 {
+    font-size: 48px; /* Smaller font size for interests heading */
+    margin-bottom: 20px; /* Reduce margin */
+  }
+
+  .interests-content,
+  .travel-content {
+    flex-direction: column; /* Stack content vertically */
+    gap: 20px; /* Reduce gap between items */
+  }
+
+  .watching-images,
+  .travel-images {
+    grid-template-columns: repeat(2, 1fr); /* Adjust grid for smaller screens */
+    gap: 10px; /* Reduce gap between images */
+  }
+
+  .watching-images img,
+  .travel-images img {
+    height: 150px; /* Adjust image height */
+  }
+
+  /* Footer Section */
+  footer {
+    padding: 20px 10px; /* Reduce padding */
+  }
+
+  .footer-content h2 {
+    font-size: 24px; /* Smaller font size for footer heading */
+  }
+
+  .footer-content p {
+    font-size: 14px; /* Smaller font size for footer text */
+  }
+
+  .social-links {
+    gap: 10px; /* Reduce gap between social links */
+  }
+
+  .social-links a {
+    font-size: 14px; /* Smaller font size for social links */
+  }
 }
