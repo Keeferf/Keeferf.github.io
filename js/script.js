@@ -120,6 +120,15 @@ function getActiveLinkId(pageUrl) {
 }
 
 // ===== Handle navigation clicks for the Projects tab =====
+// Add event listener for the home link
+document.getElementById("home-link").addEventListener("click", (e) => {
+  e.preventDefault(); // Prevent default behavior
+  loadContent("pages/projects.html"); // Load the projects page
+  history.pushState({}, "", "index.html#projects"); // Update the URL
+  clearPageState(); // Clear the stored page state
+  updateNavStyles("projects-link"); // Update the navigation styles
+});
+
 document.getElementById("projects-link").addEventListener("click", (e) => {
   e.preventDefault();
   loadContent("pages/projects.html");
