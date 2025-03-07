@@ -37,7 +37,7 @@ function handleProjectLinkClick(e) {
   loadContent(projectUrl);
 
   const hashFragment = projectUrl.replace("pages/", "").replace(".html", "");
-  history.pushState({ projectUrl }, "", `index.html#${hashFragment}`);
+  history.pushState({ projectUrl }, "", `/${hashFragment}`);
 }
 
 // ===== Add event listeners to project links =====
@@ -66,7 +66,7 @@ function clearPageState() {
 // ===== Load default content (Projects) on page load if no state is stored =====
 window.addEventListener("load", () => {
   const storedPage = loadPageState();
-  const currentHash = window.location.hash;
+  const currentPath = window.location.pathname;
 
   if (storedPage) {
     loadContent(storedPage);
@@ -75,21 +75,28 @@ window.addEventListener("load", () => {
       history.replaceState(
         { projectUrl: storedPage },
         "",
-        `index.html#${storedPage.replace(".html", "")}`
+        `/${storedPage.replace(".html", "")}`
       );
     }
 
     updateNavStyles(getActiveLinkId(storedPage));
-  } else if (currentHash) {
-    const pageToLoad = `${currentHash.replace("#", "")}.html`;
-    loadContent(`pages/${pageToLoad}`);
-    storePageState(`pages/${pageToLoad}`);
-    updateNavStyles(getActiveLinkId(pageToLoad));
+  } else if (currentPath === "/projects" || currentPath === "/projects/") {
+    loadContent("pages/projects.html");
+    storePageState("pages/projects.html");
+    updateNavStyles("projects-link");
+  } else if (currentPath === "/experience" || currentPath === "/experience/") {
+    loadContent("pages/experience.html");
+    storePageState("pages/experience.html");
+    updateNavStyles("experience-link");
+  } else if (currentPath === "/about" || currentPath === "/about/") {
+    loadContent("pages/about.html");
+    storePageState("pages/about.html");
+    updateNavStyles("about-link");
   } else {
     loadContent("pages/projects.html");
 
     if (window.location.hash !== "#projects") {
-      history.replaceState({}, "", "index.html#projects");
+      history.replaceState({}, "", "/projects");
     }
 
     updateNavStyles("projects-link");
@@ -124,7 +131,7 @@ function getActiveLinkId(pageUrl) {
 document.getElementById("home-link").addEventListener("click", (e) => {
   e.preventDefault(); // Prevent default behavior
   loadContent("pages/projects.html"); // Load the projects page
-  history.pushState({}, "", "index.html#projects"); // Update the URL
+  history.pushState({}, "", "/projects"); // Update the URL
   clearPageState(); // Clear the stored page state
   updateNavStyles("projects-link"); // Update the navigation styles
 });
@@ -132,7 +139,7 @@ document.getElementById("home-link").addEventListener("click", (e) => {
 document.getElementById("projects-link").addEventListener("click", (e) => {
   e.preventDefault();
   loadContent("pages/projects.html");
-  history.pushState({}, "", "index.html#projects");
+  history.pushState({}, "", "/projects");
   clearPageState();
   updateNavStyles("projects-link");
 });
@@ -141,7 +148,7 @@ document.getElementById("projects-link").addEventListener("click", (e) => {
 document.getElementById("experience-link").addEventListener("click", (e) => {
   e.preventDefault();
   loadContent("pages/experience.html");
-  history.pushState({}, "", "index.html#experience");
+  history.pushState({}, "", "/experience");
   clearPageState();
   updateNavStyles("experience-link");
 });
@@ -150,27 +157,46 @@ document.getElementById("experience-link").addEventListener("click", (e) => {
 document.getElementById("about-link").addEventListener("click", (e) => {
   e.preventDefault();
   loadContent("pages/about.html");
-  history.pushState({}, "", "index.html#about");
+  history.pushState({}, "", "/about");
   clearPageState();
   updateNavStyles("about-link");
 });
 
 // ===== Handle browser back/forward navigation =====
 window.addEventListener("popstate", (event) => {
-  const url = window.location.hash;
+  const path = window.location.pathname;
 
-  if (url === "#projects") {
+  if (path === "/projects" || path === "/projects/") {
     loadContent("pages/projects.html");
     clearPageState();
     updateNavStyles("projects-link");
-  } else if (url === "#experience") {
+  } else if (path === "/experience" || path === "/experience/") {
     loadContent("pages/experience.html");
     clearPageState();
     updateNavStyles("experience-link");
-  } else if (url === "#about") {
+  } else if (path === "/about" || path === "/about/") {
     loadContent("pages/about.html");
     clearPageState();
     updateNavStyles("about-link");
+  } else if (path === "/bookstore-project" || path === "/bookstore-project/") {
+    loadContent("pages/bookstore-project.html");
+    clearPageState();
+    updateNavStyles("projects-link");
+  } else if (path === "/earthub-project" || path === "/earthub-project/") {
+    loadContent("pages/earthub-project.html");
+    clearPageState();
+    updateNavStyles("projects-link");
+  } else if (
+    path === "/elevator-sim-project" ||
+    path === "/elevator-sim-project/"
+  ) {
+    loadContent("pages/elevator-sim-project.html");
+    clearPageState();
+    updateNavStyles("projects-link");
+  } else if (path === "/misc-projects" || path === "/misc-projects/") {
+    loadContent("pages/misc-projects.html");
+    clearPageState();
+    updateNavStyles("projects-link");
   } else if (event.state && event.state.projectUrl) {
     loadContent(event.state.projectUrl);
     storePageState(event.state.projectUrl);
