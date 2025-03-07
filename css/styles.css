@@ -147,8 +147,6 @@ header {
 .project {
   margin-bottom: 40px;
   padding: 20px;
-  /* border: 1px solid #ddd;
-  border-radius: 15px; */
   transition:
     transform 0.3s ease,
     box-shadow 0.3s ease;
@@ -241,15 +239,26 @@ header {
     box-shadow 0.3s ease;
 }
 
-.misc-project-item:hover {
-  transform: scale(1.02);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
 .misc-project-item h3 {
-  font-size: 36px;
+  font-size: 36px; /* Size of the h3 header */
+  line-height: 1.6;
   margin: 0 0 10px;
   color: black;
+  display: inline-flex; /* Ensure the header and icon align properly */
+  align-items: center; /* Center the icon vertically with the text */
+}
+
+.misc-github-icon {
+  height: 44px; /* Match the height of the h3 text */
+  width: auto; /* Maintain aspect ratio */
+  vertical-align: middle; /* Align with the text */
+  margin-left: 8px; /* Add spacing between the text and the icon */
+  transition: transform 0.2s ease; /* Smooth transition for hover effect */
+}
+
+/* Hover effect for the GitHub icon */
+a.github-link:hover .misc-github-icon {
+  transform: scale(1.1); /* Scale the icon on hover */
 }
 
 .misc-project-item .project-category {
@@ -508,11 +517,29 @@ header {
 }
 
 #project-title {
-  font-size: 48px;
+  font-size: 48px; /* Ensure this matches the desired size */
   font-weight: bold;
   color: #000;
   margin-top: 100px;
   margin-bottom: 40px;
+  display: inline-flex; /* Ensure the title and icon align properly */
+  align-items: center; /* Center the icon vertically with the text */
+}
+
+.project-github-icon {
+  height: 1em; /* Match the height of the project title */
+  width: auto; /* Maintain aspect ratio */
+  vertical-align: middle; /* Align with the text */
+  margin-left: 10px; /* Add some spacing between the title and the icon */
+}
+
+/* ===== GitHub Icon Hover Effect ===== */
+a.github-link .project-github-icon {
+  transition: transform 0.2s ease;
+}
+
+a.github-link:hover .project-github-icon {
+  transform: scale(1.1);
 }
 
 /* Duration Section */
