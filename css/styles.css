@@ -51,6 +51,20 @@ header {
   width: 100%;
 }
 
+.home-link {
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  color: inherit; /* Inherit the color from the parent */
+  text-decoration: none; /* Remove underline */
+}
+
+.home-link:hover {
+  text-decoration: none; /* Ensure no underline on hover */
+}
+
 .header-container {
   display: flex;
   justify-content: space-between;
